@@ -47,6 +47,7 @@ pub mod asset_rate;
 pub mod bounties;
 pub mod conviction_voting;
 pub mod scheduler;
+pub mod xcm_config;
 
 use accounts::AccountsMigrator;
 use claims::{ClaimsMigrator, ClaimsStage};
@@ -86,6 +87,11 @@ use types::{AhWeightInfo, PalletMigration};
 use vesting::VestingMigrator;
 use weights::WeightInfo;
 use xcm::prelude::*;
+use xcm_config::{AssetTransactorBefore, AssetTransactorDuringAfter};
+use xcm_executor::{
+	traits::{ConvertLocation, TransactAsset},
+	AssetsInHolding,
+};
 
 /// The log target of this pallet.
 pub const LOG_TARGET: &str = "runtime::rc-migrator";
@@ -321,6 +327,8 @@ pub mod pallet {
 			+ LockableCurrency<Self::AccountId, Balance = u128>;
 		/// XCM checking account.
 		type CheckingAccount: Get<Self::AccountId>;
+		/// Runtime's means of converting a `Location` into an `AccountId`.
+		type AccountIdConverter: ConvertLocation<Self::AccountId>;
 		/// Send DMP message.
 		type SendXcm: SendXcm;
 		/// The maximum weight that this pallet can consume `on_initialize`.
@@ -1124,5 +1132,97 @@ impl<T: Config> Contains<<T as frame_system::Config>::RuntimeCall> for Pallet<T>
 		// Otherwise, allow the call.
 		// This also implicitly allows _any_ call if the migration has not yet started.
 		ALLOWED
+	}
+}
+
+impl<T: Config> TransactAsset for Pallet<T> {
+	fn can_check_in(origin: &Location, what: &Asset, context: &XcmContext) -> XcmResult {
+		let stage = RcMigrationStage::<T>::get();
+		if stage.is_finished() || stage.is_ongoing() {
+			AssetTransactorDuringAfter::<T, T::AccountIdConverter>::can_check_in(
+				origin, what, context,
+			)
+		} else {
+			AssetTransactorBefore::<T, T::AccountIdConverter>::can_check_in(origin, what, context)
+		}
+	}
+
+	fn check_in(origin: &Location, what: &Asset, context: &XcmContext) {
+		let stage = RcMigrationStage::<T>::get();
+		if stage.is_finished() || stage.is_ongoing() {
+			AssetTransactorDuringAfter::<T, T::AccountIdConverter>::check_in(origin, what, context)
+		} else {
+			AssetTransactorBefore::<T, T::AccountIdConverter>::check_in(origin, what, context)
+		}
+	}
+
+	fn can_check_out(dest: &Location, what: &Asset, context: &XcmContext) -> XcmResult {
+		let stage = RcMigrationStage::<T>::get();
+		if stage.is_finished() || stage.is_ongoing() {
+			AssetTransactorDuringAfter::<T, T::AccountIdConverter>::can_check_out(
+				dest, what, context,
+			)
+		} else {
+			AssetTransactorBefore::<T, T::AccountIdConverter>::can_check_out(dest, what, context)
+		}
+	}
+
+	fn check_out(dest: &Location, what: &Asset, context: &XcmContext) {
+		let stage = RcMigrationStage::<T>::get();
+		if stage.is_finished() || stage.is_ongoing() {
+			AssetTransactorDuringAfter::<T, T::AccountIdConverter>::check_out(dest, what, context)
+		} else {
+			AssetTransactorBefore::<T, T::AccountIdConverter>::check_out(dest, what, context)
+		}
+	}
+
+	fn deposit_asset(what: &Asset, who: &Location, context: Option<&XcmContext>) -> XcmResult {
+		let stage = RcMigrationStage::<T>::get();
+		if stage.is_finished() || stage.is_ongoing() {
+			AssetTransactorDuringAfter::<T, T::AccountIdConverter>::deposit_asset(
+				what, who, context,
+			)
+		} else {
+			AssetTransactorBefore::<T, T::AccountIdConverter>::deposit_asset(what, who, context)
+		}
+	}
+
+	fn withdraw_asset(
+		what: &Asset,
+		who: &Location,
+		maybe_context: Option<&XcmContext>,
+	) -> Result<AssetsInHolding, XcmError> {
+		let stage = RcMigrationStage::<T>::get();
+		if stage.is_finished() || stage.is_ongoing() {
+			AssetTransactorDuringAfter::<T, T::AccountIdConverter>::withdraw_asset(
+				what,
+				who,
+				maybe_context,
+			)
+		} else {
+			AssetTransactorBefore::<T, T::AccountIdConverter>::withdraw_asset(
+				what,
+				who,
+				maybe_context,
+			)
+		}
+	}
+
+	fn internal_transfer_asset(
+		what: &Asset,
+		from: &Location,
+		to: &Location,
+		context: &XcmContext,
+	) -> Result<AssetsInHolding, XcmError> {
+		let stage = RcMigrationStage::<T>::get();
+		if stage.is_finished() || stage.is_ongoing() {
+			AssetTransactorDuringAfter::<T, T::AccountIdConverter>::internal_transfer_asset(
+				what, from, to, context,
+			)
+		} else {
+			AssetTransactorBefore::<T, T::AccountIdConverter>::internal_transfer_asset(
+				what, from, to, context,
+			)
+		}
 	}
 }

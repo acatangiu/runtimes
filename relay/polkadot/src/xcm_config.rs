@@ -40,8 +40,8 @@ use xcm_builder::{
 	AccountId32Aliases, AllowExplicitUnpaidExecutionFrom, AllowKnownQueryResponses,
 	AllowSubscriptionsFrom, AllowTopLevelPaidExecutionFrom, ChildParachainAsNative,
 	ChildParachainConvertsVia, DescribeAllTerminal, DescribeFamily, FrameTransactionalProcessor,
-	FungibleAdapter, HashedDescription, IsChildSystemParachain, IsConcrete, MintLocation,
-	OriginToPluralityVoice, SendXcmFeeToAccount, SignedAccountId32AsNative, SignedToAccountId32,
+	HashedDescription, IsChildSystemParachain, MintLocation, OriginToPluralityVoice,
+	SendXcmFeeToAccount, SignedAccountId32AsNative, SignedToAccountId32,
 	SovereignSignedViaLocation, TakeWeightCredit, TrailingSetTopicAsId, UsingComponents,
 	WeightInfoBounds, WithComputedOrigin, WithUniqueTopic, XcmFeeManagerFromComponents,
 };
@@ -75,22 +75,9 @@ pub type SovereignAccountOf = (
 	HashedDescription<AccountId, DescribeFamily<DescribeAllTerminal>>,
 );
 
-/// Our asset transactor. This is what allows us to interact with the runtime assets from the point
-/// of view of XCM-only concepts like `Location` and `Asset`.
-///
-/// Ours is only aware of the Balances pallet, which is mapped to `TokenLocation`.
-pub type LocalAssetTransactor = FungibleAdapter<
-	// Use this currency:
-	Balances,
-	// Use this currency when it is a fungible asset matching the given location or name:
-	IsConcrete<TokenLocation>,
-	// We can convert the `Location`s with our converter above:
-	SovereignAccountOf,
-	// Our chain's account ID type (we can't get away without mentioning it explicitly):
-	AccountId,
-	// We track our teleports in/out to keep total issuance correct.
-	LocalCheckAccount,
->;
+/// Native token asset transactor. Replaced by RcMigrator which has different transactors
+/// before, during and after the migration.
+pub type LocalAssetTransactor = crate::RcMigrator;
 
 /// The means that we convert an XCM origin `Location` into the runtime's `Origin` type for
 /// local dispatch. This is a conversion function from an `OriginKind` type along with the

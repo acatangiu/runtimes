@@ -1573,6 +1573,7 @@ impl pallet_rc_migrator::Config for Runtime {
 	type RuntimeEvent = RuntimeEvent;
 	type Currency = Balances;
 	type CheckingAccount = xcm_config::CheckAccount;
+	type AccountIdConverter = xcm_config::SovereignAccountOf;
 	type SendXcm = xcm_config::XcmRouter;
 	type MaxRcWeight = RcMigratorMaxWeight;
 	type MaxAhWeight = AhMigratorMaxWeight;
