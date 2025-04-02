@@ -288,9 +288,9 @@ impl<AccountId, BlockNumber, BagsListScore, VotingClass, AssetKind>
 	pub fn is_ongoing(&self) -> bool {
 		!matches!(
 			self,
-			MigrationStage::Pending |
-				MigrationStage::Scheduled { .. } |
-				MigrationStage::MigrationDone
+			MigrationStage::Pending
+				| MigrationStage::Scheduled { .. }
+				| MigrationStage::MigrationDone
 		)
 	}
 }
@@ -325,6 +325,7 @@ type AccountInfoFor<T> =
 #[frame_support::pallet]
 pub mod pallet {
 	use super::*;
+	use crate::accounts::MigratedBalances;
 
 	/// Paras Registrar Pallet
 	type ParasRegistrar<T> = paras_registrar::Pallet<T>;
@@ -400,6 +401,10 @@ pub mod pallet {
 		FailedToWithdrawAccount,
 		/// Indicates that the specified block number is in the past.
 		PastBlockNumber,
+		/// Balance accounting overflow.
+		BalanceOverflow,
+		/// Balance accounting underflow.
+		BalanceUnderflow,
 	}
 
 	#[pallet::event]
@@ -426,7 +431,8 @@ pub mod pallet {
 
 	/// Helper storage item to store the total balance that should be kept on Relay Chain.
 	#[pallet::storage]
-	pub type RcBalanceKept<T: Config> = StorageValue<_, T::Balance, ValueQuery>;
+	pub type RcMigratedBalance<T: Config> =
+		StorageValue<_, MigratedBalances<T::Balance>, ValueQuery>;
 
 	/// The total number of XCM data messages sent to the Asset Hub and the number of XCM messages
 	/// the Asset Hub has confirmed as processed.

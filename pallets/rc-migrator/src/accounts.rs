@@ -139,10 +139,10 @@ impl<AccountId, Balance: Zero, HoldReason, FreezeReason>
 {
 	/// Check if the total account balance is liquid.
 	pub fn is_liquid(&self) -> bool {
-		self.unnamed_reserve.is_zero() &&
-			self.freezes.is_empty() &&
-			self.locks.is_empty() &&
-			self.holds.is_empty()
+		self.unnamed_reserve.is_zero()
+			&& self.freezes.is_empty()
+			&& self.locks.is_empty()
+			&& self.holds.is_empty()
 	}
 }
 
@@ -178,6 +178,13 @@ pub type AccountFor<T> = Account<
 	<T as pallet_balances::Config>::RuntimeHoldReason,
 	<T as pallet_balances::Config>::FreezeIdentifier,
 >;
+
+/// Helper struct tracking total balance kept on RC and total migrated.
+#[derive(Encode, Decode, Default, Clone, PartialEq, Eq, RuntimeDebug, TypeInfo, MaxEncodedLen)]
+pub struct MigratedBalances<Balance: Default> {
+	pub kept: Balance,
+	pub migrated: Balance,
+}
 
 pub struct AccountsMigrator<T> {
 	_phantom: sp_std::marker::PhantomData<T>,
@@ -306,6 +313,11 @@ impl<T: Config> AccountsMigrator<T> {
 			return Err(Error::OutOfWeight);
 		}
 
+		let total_balance = <T as Config>::Currency::total_balance(&who);
+		// RcMigratedBalance::<T>::mutate(|tracker| {
+		// 	tracker.kept += rc_reserved;
+		// 	tracker.migrated += total_balance - rc_reserved;
+		// });
 		if let AccountState::Preserve = Self::get_rc_state(&who) {
 			log::debug!(
 				target: LOG_TARGET,
@@ -508,6 +520,25 @@ impl<T: Config> AccountsMigrator<T> {
 
 		debug_assert!(teleport_total == burned);
 
+		RcMigratedBalance::<T>::mutate(|tracker| {
+			tracker.migrated = tracker.migrated.checked_add(teleport_total).ok_or_else(|| {
+				log::error!(
+					target: LOG_TARGET,
+					"Balance overflow when adding balance of {}, balance {:?}, to total migrated {:?}",
+					who.to_ss58check(), teleport_total, tracker.migrated,
+				);
+				Error::<T>::BalanceOverflow
+			})?;
+			tracker.kept = tracker.kept.checked_sub(teleport_total).ok_or_else(|| {
+				log::error!(
+					target: LOG_TARGET,
+					"Balance underflow when subtracting balance of {}, balance {:?}, from total kept {:?}",
+					who.to_ss58check(), teleport_total, tracker.kept,
+				);
+				Error::<T>::BalanceUnderflow
+			})?;
+			Ok::<_, Error<T>>(())
+		})?;
 		let withdrawn_account = Account {
 			who: who.clone(),
 			free: teleport_free,
@@ -712,8 +743,6 @@ impl<T: Config> AccountsMigrator<T> {
 					"Preserve account: {:?} on the RC",
 					id.to_ss58check()
 				);
-				// entire balance is kept
-				RcBalanceKept::<T>::mutate(|total| *total += free + total_reserved);
 				RcAccounts::<T>::insert(&id, AccountState::Preserve);
 			} else {
 				log::debug!(
@@ -722,10 +751,14 @@ impl<T: Config> AccountsMigrator<T> {
 					id.to_ss58check(),
 					rc_reserved
 				);
-				RcBalanceKept::<T>::mutate(|total| *total += rc_reserved);
 				RcAccounts::<T>::insert(&id, AccountState::Part { reserved: rc_reserved });
 			}
 		}
+		RcMigratedBalance::<T>::mutate(|tracker| {
+			// initialize `kept` balance as total issuance, we'll substract from it as we migrate
+			// accounts
+			tracker.kept = <T as Config>::Currency::total_issuance();
+		});
 
 		// TODO: define actual weight
 		Weight::from_all(1)
@@ -779,24 +812,30 @@ impl<T: Config> crate::types::RcMigrationCheck for AccountsMigrator<T> {
 	type RcPrePayload = BalanceOf<T>;
 
 	fn pre_check() -> Self::RcPrePayload {
-		<T as Config>::Currency::total_issuance()
-	}
-
-	fn post_check(_: Self::RcPrePayload) {
 		let check_account = T::CheckingAccount::get();
 		let checking_balance = <T as Config>::Currency::total_balance(&check_account);
+		let total_issuance = <T as Config>::Currency::total_issuance();
+		let tracker = RcMigratedBalance::<T>::get();
+		println!(
+			"🤡 RC Pre Check: total_issuance {:?}, checking {:?}, kept {:?}, migrated {:?}",
+			total_issuance, checking_balance, tracker.kept, tracker.migrated
+		);
+		total_issuance
+	}
+
+	fn post_check(rc_total_issuance_before: Self::RcPrePayload) {
+		let check_account = T::CheckingAccount::get();
+		let checking_balance = <T as Config>::Currency::total_balance(&check_account);
+		let total_issuance = <T as Config>::Currency::total_issuance();
+		let tracker = RcMigratedBalance::<T>::get();
+		println!(
+			"🤡🤡 RC Post Check: total_issuance {:?}, checking {:?}, kept {:?}, migrated {:?}",
+			total_issuance, checking_balance, tracker.kept, tracker.migrated
+		);
+		// verify checking balance fully migrated
 		assert_eq!(checking_balance, 0);
-
-		let mut kept = 0;
-		for (who, acc_state) in RcAccounts::<T>::iter() {
-			kept += match acc_state {
-				AccountState::Migrate => 0,
-				AccountState::Preserve => <T as Config>::Currency::total_balance(&who),
-				AccountState::Part { reserved } => reserved,
-			};
-		}
-
-		assert_eq!(RcBalanceKept::<T>::get(), kept);
-		//assert_eq!(<T as Config>::Currency::total_issuance(), kept); // TODO Adrian
+		// verify total issuance hasn't changed for any other reason than the migrated funds
+		assert_eq!(total_issuance, rc_total_issuance_before - tracker.migrated);
+		assert_eq!(total_issuance, tracker.kept);
 	}
 }

@@ -182,6 +182,13 @@ pub struct MigrationFinishedData {
 	pub rc_balance_kept: u128,
 }
 
+/// Helper struct tracking total balance kept on RC and total migrated.
+#[derive(Encode, Decode, Default, Clone, PartialEq, Eq, RuntimeDebug, TypeInfo, MaxEncodedLen)]
+pub struct BalancesBefore<Balance: Default> {
+	pub checking_account: Balance,
+	pub total_issuance: Balance,
+}
+
 pub type BalanceOf<T> = <T as pallet_balances::Config>::Balance;
 
 #[frame_support::pallet(dev_mode)]
@@ -321,7 +328,7 @@ pub mod pallet {
 	/// of the migration. Since teleports are disabled during migration, the total issuance will not
 	/// change for other reason than the migration itself.
 	#[pallet::storage]
-	pub type AhTotalIssuanceBefore<T: Config> = StorageValue<_, T::Balance, ValueQuery>;
+	pub type AhBalancesBefore<T: Config> = StorageValue<_, BalancesBefore<T::Balance>, ValueQuery>;
 
 	#[pallet::error]
 	pub enum Error<T> {
@@ -738,10 +745,18 @@ pub mod pallet {
 			<T as Config>::ManagerOrigin::ensure_origin(origin)?;
 			Self::send_xcm(types::RcMigratorCall::StartDataMigration)?;
 
-			AhTotalIssuanceBefore::<T>::put(<T as Config>::Currency::total_issuance());
-			defensive_assert!(
-				<T as Config>::Currency::total_balance(&T::CheckingAccount::get()) == 0
+			let checking_account = T::CheckingAccount::get();
+			let balances_before = BalancesBefore {
+				checking_account: <T as Config>::Currency::total_balance(&checking_account),
+				total_issuance: <T as Config>::Currency::total_issuance(),
+			};
+			// TODO
+			log::warn!(
+				target: LOG_TARGET,
+				"🚨 start_migration(): checking_account_balance {:?}, total_issuance {:?}",
+				balances_before.checking_account, balances_before.total_issuance
 			);
+			AhBalancesBefore::<T>::put(balances_before);
 
 			Self::transition(MigrationStage::DataMigrationOngoing);
 			Ok(())
