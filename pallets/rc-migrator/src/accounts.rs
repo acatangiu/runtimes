@@ -311,11 +311,6 @@ impl<T: Config> AccountsMigrator<T> {
 			return Err(Error::OutOfWeight);
 		}
 
-		let total_balance = <T as Config>::Currency::total_balance(&who);
-		// RcMigratedBalance::<T>::mutate(|tracker| {
-		// 	tracker.kept += rc_reserved;
-		// 	tracker.migrated += total_balance - rc_reserved;
-		// });
 		if let AccountState::Preserve = Self::get_rc_state(&who) {
 			log::debug!(
 				target: LOG_TARGET,

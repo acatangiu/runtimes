@@ -83,6 +83,9 @@ impl<T: Config> Pallet<T> {
 			},
 		};
 		debug_assert!(minted == total_balance);
+		AhBalancesBefore::<T>::mutate(|tracker| {
+			tracker.migrated_in += total_balance;
+		});
 
 		for hold in account.holds {
 			if let Err(e) = <T as pallet::Config>::Currency::hold(
@@ -170,11 +173,17 @@ impl<T: Config> Pallet<T> {
 		use frame_support::traits::Currency;
 		let checking_account = T::CheckingAccount::get();
 		let balances_before = AhBalancesBefore::<T>::get();
-		// TODO
-		log::warn!(target: LOG_TARGET, "🚨 finish_accounts_migration(): balances_before {:?}", balances_before);
 		// current value is the AH checking balance + migrated checking balance of RC
 		let checking_balance =
 			<<T as pallet::Config>::Currency as Currency<_>>::total_balance(&checking_account);
+
+		// TODO
+		log::warn!(
+			target: LOG_TARGET,
+			"🚨 finish_accounts_migration(): ah_before {:?} ah_checking_now {:?} rc_kept {:?}\n\
+			failed_accounts: {:?}",
+			balances_before, checking_balance, rc_balance_kept, RcAccounts::<T>::iter().count(),
+		);
 
 		/* Arithmetics explanation:
 		At this point, because checking account was completely migrated:

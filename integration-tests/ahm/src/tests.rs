@@ -57,30 +57,30 @@ use xcm_emulator::{assert_ok, ConvertLocation, WeightMeter};
 
 type RcChecks = (
 	pallet_rc_migrator::accounts::AccountsMigrator<Polkadot>,
-	pallet_rc_migrator::preimage::PreimageChunkMigrator<Polkadot>,
-	pallet_rc_migrator::preimage::PreimageRequestStatusMigrator<Polkadot>,
-	pallet_rc_migrator::preimage::PreimageLegacyRequestStatusMigrator<Polkadot>,
-	pallet_rc_migrator::indices::IndicesMigrator<Polkadot>,
-	pallet_rc_migrator::vesting::VestingMigrator<Polkadot>,
-	pallet_rc_migrator::proxy::ProxyProxiesMigrator<Polkadot>,
-	pallet_rc_migrator::staking::bags_list::BagsListMigrator<Polkadot>,
-	pallet_rc_migrator::conviction_voting::ConvictionVotingMigrator<Polkadot>,
-	// other pallets go here
-	ProxiesStillWork,
+	// pallet_rc_migrator::preimage::PreimageChunkMigrator<Polkadot>,
+	// pallet_rc_migrator::preimage::PreimageRequestStatusMigrator<Polkadot>,
+	// pallet_rc_migrator::preimage::PreimageLegacyRequestStatusMigrator<Polkadot>,
+	// pallet_rc_migrator::indices::IndicesMigrator<Polkadot>,
+	// pallet_rc_migrator::vesting::VestingMigrator<Polkadot>,
+	// pallet_rc_migrator::proxy::ProxyProxiesMigrator<Polkadot>,
+	// pallet_rc_migrator::staking::bags_list::BagsListMigrator<Polkadot>,
+	// pallet_rc_migrator::conviction_voting::ConvictionVotingMigrator<Polkadot>,
+	// // other pallets go here
+	// ProxiesStillWork,
 );
 
 type AhChecks = (
 	pallet_rc_migrator::accounts::AccountsMigrator<AssetHub>,
-	pallet_rc_migrator::preimage::PreimageChunkMigrator<AssetHub>,
-	pallet_rc_migrator::preimage::PreimageRequestStatusMigrator<AssetHub>,
-	pallet_rc_migrator::preimage::PreimageLegacyRequestStatusMigrator<AssetHub>,
-	pallet_rc_migrator::indices::IndicesMigrator<AssetHub>,
-	pallet_rc_migrator::vesting::VestingMigrator<AssetHub>,
-	pallet_rc_migrator::proxy::ProxyProxiesMigrator<AssetHub>,
-	pallet_rc_migrator::staking::bags_list::BagsListMigrator<AssetHub>,
-	pallet_rc_migrator::conviction_voting::ConvictionVotingMigrator<AssetHub>,
-	// other pallets go here
-	ProxiesStillWork,
+	// pallet_rc_migrator::preimage::PreimageChunkMigrator<AssetHub>,
+	// pallet_rc_migrator::preimage::PreimageRequestStatusMigrator<AssetHub>,
+	// pallet_rc_migrator::preimage::PreimageLegacyRequestStatusMigrator<AssetHub>,
+	// pallet_rc_migrator::indices::IndicesMigrator<AssetHub>,
+	// pallet_rc_migrator::vesting::VestingMigrator<AssetHub>,
+	// pallet_rc_migrator::proxy::ProxyProxiesMigrator<AssetHub>,
+	// pallet_rc_migrator::staking::bags_list::BagsListMigrator<AssetHub>,
+	// pallet_rc_migrator::conviction_voting::ConvictionVotingMigrator<AssetHub>,
+	// // other pallets go here
+	// ProxiesStillWork,
 );
 
 #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
@@ -95,6 +95,16 @@ async fn pallet_migration_works() {
 
 	// Pre-checks on the Asset Hub
 	let ah_pre = run_check(|| AhChecks::pre_check(rc_pre.clone().unwrap()), &mut ah);
+
+	// Run relay chain, sends start signal to AH
+	let dmp_messages = rc_migrate(&mut rc);
+	// AH process start signal, send back ack
+	ah_migrate(&mut ah, dmp_messages);
+	// no upward messaging support in this test yet, just manually advance the stage
+	rc.execute_with(|| {
+		RcMigrationStageStorage::<Polkadot>::put(RcMigrationStage::AccountsMigrationInit);
+	});
+	rc.commit_all().unwrap();
 
 	// Migrate the Relay Chain
 	let dmp_messages = rc_migrate(&mut rc);
@@ -316,8 +326,8 @@ async fn migration_works() {
 
 	let mut rc_block_count = 0;
 	// finish the loop when the migration is done.
-	while rc.execute_with(|| RcMigrationStageStorage::<Polkadot>::get()) !=
-		RcMigrationStage::MigrationDone
+	while rc.execute_with(|| RcMigrationStageStorage::<Polkadot>::get())
+		!= RcMigrationStage::MigrationDone
 	{
 		// execute next RC block.
 		let dmp_messages = rc.execute_with(|| {

@@ -84,6 +84,7 @@ use pallet_rc_migrator::{
 		nom_pools::*,
 	},
 	treasury::RcTreasuryMessage,
+	types::MigrationFinishedData,
 	vesting::RcVestingSchedule,
 };
 use pallet_referenda::TrackIdOf;
@@ -175,18 +176,12 @@ impl MigrationStage {
 	}
 }
 
-/// Further data coming from Relay Chain alongside the signal that migration has finished.
-#[derive(Encode, Decode, Clone, Default, RuntimeDebug, TypeInfo, MaxEncodedLen, PartialEq, Eq)]
-pub struct MigrationFinishedData {
-	/// Total native token balance NOT migrated from Relay Chain
-	pub rc_balance_kept: u128,
-}
-
 /// Helper struct tracking total balance kept on RC and total migrated.
 #[derive(Encode, Decode, Default, Clone, PartialEq, Eq, RuntimeDebug, TypeInfo, MaxEncodedLen)]
 pub struct BalancesBefore<Balance: Default> {
 	pub checking_account: Balance,
 	pub total_issuance: Balance,
+	pub migrated_in: Balance,
 }
 
 pub type BalanceOf<T> = <T as pallet_balances::Config>::Balance;
@@ -748,6 +743,8 @@ pub mod pallet {
 			let balances_before = BalancesBefore {
 				checking_account: <T as Config>::Currency::total_balance(&checking_account),
 				total_issuance: <T as Config>::Currency::total_issuance(),
+				// TODO
+				migrated_in: 0u32.into(),
 			};
 			// TODO
 			log::warn!(
@@ -767,10 +764,10 @@ pub mod pallet {
 		#[pallet::call_index(110)]
 		pub fn finish_migration(
 			origin: OriginFor<T>,
-			data: MigrationFinishedData,
+			data: MigrationFinishedData<T::Balance>,
 		) -> DispatchResult {
 			<T as Config>::ManagerOrigin::ensure_origin(origin)?;
-			Self::finish_accounts_migration(data.rc_balance_kept.into())?;
+			Self::finish_accounts_migration(data.rc_balance_kept)?;
 			Self::transition(MigrationStage::MigrationDone);
 			Ok(())
 		}

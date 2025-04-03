@@ -52,6 +52,8 @@ pub mod scheduler;
 pub mod treasury;
 pub mod xcm_config;
 
+use crate::accounts::MigratedBalances;
+use crate::types::MigrationFinishedData;
 use crate::xcm_config::TrustedTeleportersBeforeAndAfter;
 use accounts::AccountsMigrator;
 use claims::{ClaimsMigrator, ClaimsStage};
@@ -268,6 +270,7 @@ pub enum MigrationStage<AccountId, BlockNumber, BagsListScore, VotingClass, Asse
 	},
 	TreasuryMigrationDone,
 
+	SignalMigrationFinish,
 	MigrationDone,
 }
 
@@ -324,7 +327,6 @@ type AccountInfoFor<T> =
 #[frame_support::pallet]
 pub mod pallet {
 	use super::*;
-	use crate::accounts::MigratedBalances;
 
 	/// Paras Registrar Pallet
 	type ParasRegistrar<T> = paras_registrar::Pallet<T>;
@@ -594,7 +596,8 @@ pub mod pallet {
 				MigrationStage::AccountsMigrationDone => {
 					AccountsMigrator::<T>::finish_balances_migration();
 					// Note: swap this out for faster testing to skip some migrations
-					Self::transition(MigrationStage::MultisigMigrationInit);
+					// TODO: Adrian
+					Self::transition(MigrationStage::SignalMigrationFinish);
 				},
 				MigrationStage::MultisigMigrationInit => {
 					Self::transition(MigrationStage::MultisigMigrationOngoing { last_key: None });
@@ -1206,6 +1209,26 @@ pub mod pallet {
 					}
 				},
 				MigrationStage::TreasuryMigrationDone => {
+					Self::transition(MigrationStage::SignalMigrationFinish);
+				},
+				MigrationStage::SignalMigrationFinish => {
+					// TODO: weight
+					let tracker = RcMigratedBalance::<T>::get();
+					let data = MigrationFinishedData {
+						rc_balance_kept: tracker.kept,
+					};
+					let call = types::AhMigratorCall::<T>::FinishMigration { data };
+					match Self::send_xcm(call, Weight::from_all(1)) {
+						Ok(_) => {
+							Self::transition(MigrationStage::MigrationDone);
+						},
+						Err(_) => {
+							defensive!(
+								"Failed to send FinishMigration message to AH, \
+								retry with the next block"
+							);
+						},
+					}
 					Self::transition(MigrationStage::MigrationDone);
 				},
 				MigrationStage::MigrationDone => (),
