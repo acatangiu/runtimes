@@ -163,8 +163,8 @@ pub mod ah_migration;
 // Governance configurations.
 pub mod governance;
 use governance::{
-	pallet_custom_origins, AuctionAdmin, Fellows, GeneralAdmin, LeaseAdmin, StakingAdmin,
-	Treasurer, TreasurySpender,
+	pallet_custom_origins, AuctionAdmin, GeneralAdmin, LeaseAdmin, StakingAdmin, Treasurer,
+	TreasurySpender,
 };
 
 #[cfg(test)]
@@ -1315,8 +1315,6 @@ impl InstanceFilter<RuntimeCall> for TransparentProxyType {
 				RuntimeCall::ChildBounties(..) |
 				RuntimeCall::ConvictionVoting(..) |
 				RuntimeCall::Referenda(..) |
-				RuntimeCall::FellowshipCollective(..) |
-				RuntimeCall::FellowshipReferenda(..) |
 				RuntimeCall::Whitelist(..) |
 				RuntimeCall::Claims(..) |
 				RuntimeCall::Utility(..) |
@@ -1354,8 +1352,6 @@ impl InstanceFilter<RuntimeCall> for TransparentProxyType {
 					// OpenGov calls
 					RuntimeCall::ConvictionVoting(..) |
 					RuntimeCall::Referenda(..) |
-					RuntimeCall::FellowshipCollective(..) |
-					RuntimeCall::FellowshipReferenda(..) |
 					RuntimeCall::Whitelist(..)
 			),
 			ProxyType::Staking => matches!(
@@ -1929,7 +1925,10 @@ impl pallet_rc_migrator::Config for Runtime {
 	type RuntimeEvent = RuntimeEvent;
 	type AdminOrigin = EitherOfDiverse<
 		EnsureRoot<AccountId>,
-		EitherOfDiverse<Fellows, EnsureXcm<Equals<AssetHubLocation>, Location>>,
+		EitherOfDiverse<
+			EnsureXcm<xcm_config::Fellows>,
+			EnsureXcm<Equals<AssetHubLocation>, Location>,
+		>,
 	>;
 	type Currency = Balances;
 	type CheckingAccount = xcm_config::CheckAccount;
@@ -1990,10 +1989,6 @@ construct_runtime! {
 		Treasury: pallet_treasury = 18,
 		ConvictionVoting: pallet_conviction_voting = 20,
 		Referenda: pallet_referenda = 21,
-//		pub type FellowshipCollectiveInstance = pallet_ranked_collective::Instance1;
-		FellowshipCollective: pallet_ranked_collective::<Instance1> = 22,
-//		pub type FellowshipReferendaInstance = pallet_referenda::Instance2;
-		FellowshipReferenda: pallet_referenda::<Instance2> = 23,
 		Origins: pallet_custom_origins = 43,
 		Whitelist: pallet_whitelist = 44,
 		Parameters: pallet_parameters = 46,
@@ -2201,10 +2196,8 @@ mod benches {
 		[pallet_offences, OffencesBench::<Runtime>]
 		[pallet_preimage, Preimage]
 		[pallet_proxy, Proxy]
-		[pallet_ranked_collective, FellowshipCollective]
 		[pallet_recovery, Recovery]
 		[pallet_referenda, Referenda]
-		[pallet_referenda, FellowshipReferenda]
 		[pallet_scheduler, Scheduler]
 		[pallet_session, SessionBench::<Runtime>]
 		[pallet_society, Society]

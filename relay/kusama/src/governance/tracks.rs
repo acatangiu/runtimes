@@ -32,9 +32,6 @@ const SUP_STAKING_ADMIN: Curve =
 	Curve::make_reciprocal(12, 28, percent(1), percent(0), percent(50));
 const APP_TREASURER: Curve = Curve::make_reciprocal(4, 28, percent(80), percent(50), percent(100));
 const SUP_TREASURER: Curve = Curve::make_linear(28, 28, percent(0), percent(50));
-const APP_FELLOWSHIP_ADMIN: Curve = Curve::make_linear(17, 28, percent(50), percent(100));
-const SUP_FELLOWSHIP_ADMIN: Curve =
-	Curve::make_reciprocal(12, 28, percent(1), percent(0), percent(50));
 const APP_GENERAL_ADMIN: Curve =
 	Curve::make_reciprocal(4, 28, percent(80), percent(50), percent(100));
 const SUP_GENERAL_ADMIN: Curve =
@@ -156,15 +153,15 @@ const TRACKS_DATA: [pallet_referenda::Track<u16, Balance, BlockNumber>; 16] = [
 	pallet_referenda::Track {
 		id: 13,
 		info: pallet_referenda::TrackInfo {
-			name: s("fellowship_admin"),
-			max_deciding: 10,
-			decision_deposit: 5 * GRAND,
+			name: s("unused"),
+			max_deciding: 1,
+			decision_deposit: 100 * GRAND,
 			prepare_period: 2 * HOURS,
 			decision_period: 14 * DAYS,
-			confirm_period: 3 * HOURS,
-			min_enactment_period: 10 * MINUTES,
-			min_approval: APP_FELLOWSHIP_ADMIN,
-			min_support: SUP_FELLOWSHIP_ADMIN,
+			confirm_period: 24 * HOURS,
+			min_enactment_period: 24 * HOURS,
+			min_approval: APP_ROOT,
+			min_support: SUP_ROOT,
 		},
 	},
 	pallet_referenda::Track {
@@ -318,7 +315,6 @@ impl pallet_referenda::TracksInfo<Balance, BlockNumber> for TracksInfo {
 				origins::Origin::StakingAdmin => Ok(10),
 				origins::Origin::Treasurer => Ok(11),
 				origins::Origin::LeaseAdmin => Ok(12),
-				origins::Origin::FellowshipAdmin => Ok(13),
 				origins::Origin::GeneralAdmin => Ok(14),
 				origins::Origin::AuctionAdmin => Ok(15),
 				// Referendum admins

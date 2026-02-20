@@ -144,8 +144,6 @@ pub fn call_allowed_status(call: &<Runtime as frame_system::Config>::RuntimeCall
 		Society(..) => (OFF, OFF),  // migrating pallet
 		Recovery(..) => (OFF, OFF), // migrating pallet
 		Parameters(..) => (ON, ON),
-		FellowshipCollective(..) => (ON, ON),
-		FellowshipReferenda(..) => (ON, ON),
 	}
 	// Exhaustive match. Compiler ensures that we did not miss any.
 }

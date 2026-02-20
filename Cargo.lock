@@ -17253,7 +17253,6 @@ dependencies = [
  "pallet-parameters",
  "pallet-preimage",
  "pallet-proxy",
- "pallet-ranked-collective",
  "pallet-rc-migrator",
  "pallet-recovery",
  "pallet-referenda",

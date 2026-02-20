@@ -17,9 +17,9 @@
 //! XCM configurations for the Kusama runtime.
 
 use super::{
-	parachains_origin, AccountId, AllPalletsWithSystem, Balances, Dmp, Fellows, GeneralAdmin,
-	ParaId, Runtime, RuntimeCall, RuntimeEvent, RuntimeOrigin, StakingAdmin, TransactionByteFee,
-	Treasury, WeightToFee, XcmPallet,
+	parachains_origin, AccountId, AllPalletsWithSystem, Balances, Dmp, GeneralAdmin, ParaId,
+	Runtime, RuntimeCall, RuntimeEvent, RuntimeOrigin, StakingAdmin, TransactionByteFee, Treasury,
+	WeightToFee, XcmPallet,
 };
 use frame_support::{
 	parameter_types,
@@ -195,7 +195,7 @@ pub type Barrier = TrailingSetTopicAsId<(
 			// If the message is one that immediately attempts to pay for execution, then allow it.
 			AllowTopLevelPaidExecutionFrom<Everything>,
 			// Messages coming from system parachains need not pay for execution.
-			AllowExplicitUnpaidExecutionFrom<(IsChildSystemParachain<ParaId>, AssetHubPlurality)>,
+			AllowExplicitUnpaidExecutionFrom<(IsChildSystemParachain<ParaId>, AssetHubPlurality, Fellows)>,
 			// Subscriptions for version tracking are OK.
 			AllowSubscriptionsFrom<OnlyParachains>,
 		),
@@ -206,7 +206,7 @@ pub type Barrier = TrailingSetTopicAsId<(
 
 /// Locations that will not be charged fees in the executor, neither for execution nor delivery.
 /// We only waive fees for system functions, which these locations represent.
-pub type WaivedLocations = (SystemParachains, Equals<TokenLocation>, LocalPlurality);
+pub type WaivedLocations = (SystemParachains, Equals<TokenLocation>, LocalPlurality, Fellows);
 
 pub struct XcmConfig;
 impl xcm_executor::Config for XcmConfig {
@@ -264,6 +264,20 @@ parameter_types! {
 	pub const FellowsBodyId: BodyId = BodyId::Technical;
 	// `GeneralAdmin` pluralistic body.
 	pub const GeneralAdminBodyId: BodyId = BodyId::Administration;
+	// Bridged Polkadot Collectives parachain location.
+	pub CollectivesLocation: Location =
+		Location::new(2, [GlobalConsensus(Polkadot), Parachain(1001)]);
+}
+
+/// Polkadot Fellows (Technical body on Polkadot Collectives parachain, reached over the bridge).
+pub struct Fellows;
+impl Contains<Location> for Fellows {
+	fn contains(loc: &Location) -> bool {
+		matches!(
+			loc.unpack(),
+			(2, [GlobalConsensus(Polkadot), Parachain(1001), Plurality { id: BodyId::Technical, .. }])
+		)
+	}
 }
 
 /// Type to convert an `Origin` type value into a `Location` value which represents an interior
@@ -277,9 +291,6 @@ pub type LocalOriginToLocation = (
 pub type StakingAdminToPlurality =
 	OriginToPluralityVoice<RuntimeOrigin, StakingAdmin, StakingAdminBodyId>;
 
-/// Type to convert the Fellows origin to a Plurality `Location` value.
-pub type FellowsToPlurality = OriginToPluralityVoice<RuntimeOrigin, Fellows, FellowsBodyId>;
-
 /// Type to convert the `GeneralAdmin` origin to a Plurality `Location` value.
 pub type GeneralAdminToPlurality =
 	OriginToPluralityVoice<RuntimeOrigin, GeneralAdmin, GeneralAdminBodyId>;
@@ -291,8 +302,6 @@ pub type LocalPalletOrSignedOriginToLocation = (
 	GeneralAdminToPlurality,
 	// StakingAdmin origin to be used in XCM as a corresponding Plurality `Location` value.
 	StakingAdminToPlurality,
-	// Fellows origin to be used in XCM as a corresponding Plurality `Location` value.
-	FellowsToPlurality,
 	// And a usual Signed origin to be used in XCM as a corresponding `AccountId32`.
 	SignedToAccountId32<RuntimeOrigin, AccountId, ThisNetwork>,
 );

@@ -83,7 +83,8 @@ parameter_types! {
 	pub PoolAssetsPalletLocation: Location =
 		PalletInstance(<PoolAssets as PalletInfoAccess>::index() as u8).into();
 	pub CheckingAccount: AccountId = PolkadotXcm::check_account();
-	pub FellowshipLocation: Location = RelayChainLocation::get();
+	pub FellowshipLocation: Location =
+		Location::new(2, [GlobalConsensus(Polkadot), Parachain(1001)]);
 	pub RelayTreasuryLocation: Location = (Parent, PalletInstance(kusama_runtime_constants::TREASURY_PALLET_ID)).into();
 	pub StakingPot: AccountId = CollatorSelection::account_id();
 	// Test [`crate::tests::treasury_pallet_account_not_none`] ensures that the result of location
@@ -273,7 +274,10 @@ impl Contains<Location> for LocalPlurality {
 pub struct FellowshipEntities;
 impl Contains<Location> for FellowshipEntities {
 	fn contains(location: &Location) -> bool {
-		matches!(location.unpack(), (1, [Plurality { id: BodyId::Technical, .. }]))
+		matches!(
+			location.unpack(),
+			(2, [GlobalConsensus(Polkadot), Parachain(1001), Plurality { id: BodyId::Technical, .. }])
+		)
 	}
 }
 
