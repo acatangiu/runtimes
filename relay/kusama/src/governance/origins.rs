@@ -47,6 +47,7 @@ pub mod pallet_custom_origins {
 		/// Origin for spending (any amount of) funds.
 		Treasurer,
 		/// Origin for managing the composition of the fellowship.
+		/// Kept for encoding stability — no longer used by local pallets.
 		FellowshipAdmin,
 		/// Origin for managing the registrar and permissioned HRMP channel operations.
 		GeneralAdmin,
@@ -71,30 +72,43 @@ pub mod pallet_custom_origins {
 		/// Origin able to dispatch a whitelisted call.
 		WhitelistedCaller,
 		/// Origin commanded by any members of the Polkadot Fellowship (no Dan grade needed).
+		/// Kept for encoding stability — no longer used by local pallets.
 		FellowshipInitiates,
 		/// Origin commanded by Polkadot Fellows (3rd Dan fellows or greater).
+		/// Kept for encoding stability — no longer used by local pallets.
 		Fellows,
 		/// Origin commanded by Polkadot Experts (5th Dan fellows or greater).
+		/// Kept for encoding stability — no longer used by local pallets.
 		FellowshipExperts,
 		/// Origin commanded by Polkadot Masters (7th Dan fellows of greater).
+		/// Kept for encoding stability — no longer used by local pallets.
 		FellowshipMasters,
 		/// Origin commanded by rank 1 of the Polkadot Fellowship and with a success of 1.
+		/// Kept for encoding stability — no longer used by local pallets.
 		Fellowship1Dan,
 		/// Origin commanded by rank 2 of the Polkadot Fellowship and with a success of 2.
+		/// Kept for encoding stability — no longer used by local pallets.
 		Fellowship2Dan,
 		/// Origin commanded by rank 3 of the Polkadot Fellowship and with a success of 3.
+		/// Kept for encoding stability — no longer used by local pallets.
 		Fellowship3Dan,
 		/// Origin commanded by rank 4 of the Polkadot Fellowship and with a success of 4.
+		/// Kept for encoding stability — no longer used by local pallets.
 		Fellowship4Dan,
 		/// Origin commanded by rank 5 of the Polkadot Fellowship and with a success of 5.
+		/// Kept for encoding stability — no longer used by local pallets.
 		Fellowship5Dan,
 		/// Origin commanded by rank 6 of the Polkadot Fellowship and with a success of 6.
+		/// Kept for encoding stability — no longer used by local pallets.
 		Fellowship6Dan,
 		/// Origin commanded by rank 7 of the Polkadot Fellowship and with a success of 7.
+		/// Kept for encoding stability — no longer used by local pallets.
 		Fellowship7Dan,
 		/// Origin commanded by rank 8 of the Polkadot Fellowship and with a success of 8.
+		/// Kept for encoding stability — no longer used by local pallets.
 		Fellowship8Dan,
 		/// Origin commanded by rank 9 of the Polkadot Fellowship and with a success of 9.
+		/// Kept for encoding stability — no longer used by local pallets.
 		Fellowship9Dan,
 		/// Origin for signaling that the network wishes for some change.
 		WishForChange,
