@@ -1,355 +1,15 @@
-[workspace.package]
-version = "1.0.0"
-authors = ["Polkadot Fellowship"]
-edition = "2021"
-repository = "https://github.com/polkadot-fellows/runtimes.git"
-license = "GPL-3.0-only"                                        # TODO <https://github.com/polkadot-fellows/runtimes/issues/29>
-
-[workspace.dependencies]
-pallet-ah-migrator = { path = "pallets/ah-migrator", default-features = false }
-pallet-rc-migrator = { path = "pallets/rc-migrator", default-features = false }
-pallet-ah-ops = { path = "pallets/ah-ops", default-features = false }
-pallet-election-provider-multi-block = { version = "0.6.1", default-features = false }
-pallet-staking-async = { version = "0.10.2", default-features = false }
-hex = { version = "0.4.3", default-features = false }
-rand = { version = "0.9.2" }
-impl-trait-for-tuples = { version = "0.2.3", default-features = false }
-assert_matches = { version = "1.5.0" }
-approx = { version = "0.5.1" }
-array-bytes = { version = "9.3.0" }
-asset-hub-kusama-emulated-chain = { path = "integration-tests/emulated/chains/parachains/assets/asset-hub-kusama" }
-asset-hub-kusama-runtime = { path = "system-parachains/asset-hubs/asset-hub-kusama" }
-asset-hub-polkadot-emulated-chain = { path = "integration-tests/emulated/chains/parachains/assets/asset-hub-polkadot" }
-asset-hub-polkadot-runtime = { path = "system-parachains/asset-hubs/asset-hub-polkadot" }
-asset-test-utils = { version = "29.0.1" }
-assets-common = { version = "0.27.1", default-features = false }
-authority-discovery-primitives = { version = "40.0.0", default-features = false, package = "sp-authority-discovery" }
-babe-primitives = { version = "0.46.0", default-features = false, package = "sp-consensus-babe" }
-beefy-primitives = { version = "28.0.0", default-features = false, package = "sp-consensus-beefy" }
-binary-merkle-tree = { version = "16.1.0", default-features = false }
-bp-asset-hub-kusama = { path = "system-parachains/asset-hubs/asset-hub-kusama/primitives", default-features = false }
-bp-asset-hub-polkadot = { path = "system-parachains/asset-hubs/asset-hub-polkadot/primitives", default-features = false }
-bp-bridge-hub-cumulus = { version = "0.27.0", default-features = false }
-bp-bridge-hub-kusama = { path = "system-parachains/bridge-hubs/bridge-hub-kusama/primitives", default-features = false }
-bp-bridge-hub-polkadot = { path = "system-parachains/bridge-hubs/bridge-hub-polkadot/primitives", default-features = false }
-bp-header-chain = { version = "0.25.0", default-features = false }
-bp-messages = { version = "0.25.0", default-features = false }
-bp-parachains = { version = "0.25.0", default-features = false }
-bp-polkadot-core = { version = "0.25.0", default-features = false }
-bp-relayers = { version = "0.25.0", default-features = false }
-bp-runtime = { version = "0.25.0", default-features = false }
-bp-xcm-bridge-hub = { version = "0.11.0", default-features = false }
-bp-xcm-bridge-hub-router = { version = "0.22.0", default-features = false }
-bridge-hub-common = { version = "0.18.0", default-features = false }
-bridge-hub-kusama-emulated-chain = { path = "integration-tests/emulated/chains/parachains/bridges/bridge-hub-kusama" }
-bridge-hub-kusama-runtime = { path = "system-parachains/bridge-hubs/bridge-hub-kusama" }
-bridge-hub-polkadot-emulated-chain = { path = "integration-tests/emulated/chains/parachains/bridges/bridge-hub-polkadot" }
-bridge-hub-polkadot-runtime = { path = "system-parachains/bridge-hubs/bridge-hub-polkadot" }
-bridge-hub-test-utils = { version = "0.28.0" }
-bridge-runtime-common = { version = "0.26.0", default-features = false }
-clap = { version = "4.5.0" }
-codec = { package = "parity-scale-codec", version = "3.7.5", default-features = false }
-collectives-polkadot-emulated-chain = { path = "integration-tests/emulated/chains/parachains/collectives/collectives-polkadot" }
-collectives-polkadot-runtime = { path = "system-parachains/collectives/collectives-polkadot" }
-collectives-polkadot-runtime-constants = { path = "system-parachains/collectives/collectives-polkadot/constants" }
-coretime-kusama-emulated-chain = { path = "integration-tests/emulated/chains/parachains/coretime/coretime-kusama" }
-coretime-kusama-runtime = { path = "system-parachains/coretime/coretime-kusama" }
-coretime-polkadot-emulated-chain = { path = "integration-tests/emulated/chains/parachains/coretime/coretime-polkadot" }
-coretime-polkadot-runtime = { path = "system-parachains/coretime/coretime-polkadot" }
-cumulus-pallet-aura-ext = { version = "0.25.0", default-features = false }
-cumulus-pallet-parachain-system = { version = "0.25.0", default-features = false }
-cumulus-pallet-weight-reclaim = { version = "0.7.0", default-features = false }
-cumulus-pallet-session-benchmarking = { version = "26.0.0", default-features = false }
-cumulus-pallet-xcm = { version = "0.24.0", default-features = false }
-cumulus-pallet-xcmp-queue = { version = "0.25.0", default-features = false }
-cumulus-primitives-aura = { version = "0.21.0", default-features = false }
-cumulus-primitives-core = { version = "0.23.0", default-features = false }
-cumulus-primitives-utility = { version = "0.25.0", default-features = false }
-emulated-integration-tests-common = { version = "28.0.0" }
-encointer-balances-tx-payment = { version = "~21.1.0", default-features = false }
-encointer-balances-tx-payment-rpc-runtime-api = { version = "~21.1.0", default-features = false }
-encointer-kusama-runtime = { path = "system-parachains/encointer" }
-encointer-kusama-emulated-chain = { path = "integration-tests/emulated/chains/parachains/encointer/encointer-kusama" }
-encointer-primitives = { version = "~21.5.0", default-features = false }
-enumflags2 = { version = "0.7.7" }
-frame-benchmarking = { version = "45.0.3", default-features = false }
-frame-election-provider-support = { version = "45.0.0", default-features = false }
-frame-executive = { version = "45.0.1", default-features = false }
-frame-support = { version = "45.1.0", default-features = false }
-frame-system = { version = "45.0.0", default-features = false }
-frame-system-benchmarking = { version = "45.0.0", default-features = false }
-frame-system-rpc-runtime-api = { version = "40.0.0", default-features = false }
-frame-try-runtime = { version = "0.51.0", default-features = false }
-glutton-kusama-runtime = { path = "system-parachains/gluttons/glutton-kusama" }
-grandpa = { version = "0.40.0", package = "sc-consensus-grandpa" }
-grandpa-primitives = { version = "27.0.0", default-features = false, package = "sp-consensus-grandpa" }
-hex-literal = { version = "0.4.1" }
-integration-tests-helpers = { path = "integration-tests/emulated/helpers" }
-kusama-emulated-chain = { path = "integration-tests/emulated/chains/relays/kusama" }
-kusama-polkadot-system-emulated-network = { path = "integration-tests/emulated/networks/kusama-polkadot-system" }
-kusama-runtime = { path = "relay/kusama", package = "staging-kusama-runtime" }
-kusama-runtime-constants = { path = "relay/kusama/constants", default-features = false }
-kusama-system-emulated-network = { path = "integration-tests/emulated/networks/kusama-system" }
-log = { version = "0.4.22", default-features = false }
-pallet-alliance = { version = "44.0.0", default-features = false }
-pallet-asset-conversion = { version = "27.0.0", default-features = false }
-pallet-asset-conversion-tx-payment = { version = "27.0.1", default-features = false }
-pallet-asset-rate = { version = "24.0.0", default-features = false }
-pallet-asset-tx-payment = { version = "45.0.0", default-features = false }
-pallet-assets = { version = "48.1.0", default-features = false }
-pallet-assets-holder = { version = "0.8.0", default-features = false }
-pallet-assets-precompiles = { version = "0.4.1", default-features = false }
-pallet-aura = { version = "44.0.0", default-features = false }
-pallet-authority-discovery = { version = "45.0.0", default-features = false }
-pallet-authorship = { version = "45.0.0", default-features = false }
-pallet-babe = { version = "45.0.0", default-features = false }
-pallet-bags-list = { version = "44.0.1", default-features = false }
-pallet-balances = { version = "46.0.0", default-features = false }
-pallet-beefy = { version = "46.0.0", default-features = false }
-pallet-beefy-mmr = { version = "46.0.0", default-features = false }
-pallet-bounties = { version = "44.0.0", default-features = false }
-pallet-bridge-grandpa = { version = "0.25.0", default-features = false }
-pallet-bridge-messages = { version = "0.25.0", default-features = false }
-pallet-bridge-parachains = { version = "0.25.0", default-features = false }
-pallet-bridge-relayers = { version = "0.25.0", default-features = false }
-pallet-broker = { version = "0.24.1", default-features = false }
-pallet-child-bounties = { version = "44.0.0", default-features = false }
-pallet-collator-selection = { version = "26.0.0", default-features = false }
-pallet-collective = { version = "45.0.0", default-features = false }
-pallet-conviction-voting = { version = "45.0.0", default-features = false }
-pallet-dap = { version = "0.2.0", default-features = false }
-pallet-core-fellowship = { version = "29.0.0", default-features = false }
-pallet-election-provider-multi-phase = { version = "44.0.0", default-features = false }
-pallet-election-provider-support-benchmarking = { version = "44.0.0", default-features = false }
-pallet-encointer-balances = { version = "~21.2.0", default-features = false }
-pallet-encointer-bazaar = { version = "~21.1.0", default-features = false }
-pallet-encointer-bazaar-rpc-runtime-api = { version = "~21.1.0", default-features = false }
-pallet-encointer-ceremonies = { version = "~21.1.0", default-features = false }
-pallet-encointer-ceremonies-rpc-runtime-api = { version = "~21.1.0", default-features = false }
-pallet-encointer-communities = { version = "~21.1.0", default-features = false }
-pallet-encointer-communities-rpc-runtime-api = { version = "~21.1.0", default-features = false }
-pallet-encointer-democracy = { version = "~21.7.0", default-features = false }
-pallet-encointer-faucet = { version = "~21.2.0", default-features = false }
-pallet-encointer-offline-payment = { version = "~21.0.0", default-features = false }
-pallet-encointer-reputation-commitments = { version = "~21.1.1", default-features = false }
-pallet-encointer-reputation-rings = { version = "~21.0.0", default-features = false }
-pallet-encointer-scheduler = { version = "~21.1.0", default-features = false }
-pallet-encointer-treasuries = { version = "~21.7.0", default-features = false }
-pallet-encointer-treasuries-rpc-runtime-api = { version = "~21.3.0", default-features = false }
-pallet-fast-unstake = { version = "44.0.0", default-features = false }
-pallet-glutton = { version = "31.0.0", default-features = false }
-pallet-grandpa = { version = "45.0.0", default-features = false }
-pallet-identity = { version = "45.0.0", default-features = false }
-pallet-indices = { version = "45.0.0", default-features = false }
-pallet-insecure-randomness-collective-flip = { version = "33.0.0", default-features = false }
-pallet-membership = { version = "45.0.0", default-features = false }
-pallet-message-queue = { version = "48.0.0", default-features = false }
-pallet-mmr = { version = "45.0.0", default-features = false }
-pallet-multi-asset-bounties = { version = "0.2.1", default-features = false }
-pallet-multisig = { version = "45.0.0", default-features = false }
-pallet-nft-fractionalization = { version = "29.0.0", default-features = false }
-pallet-nfts = { version = "39.0.0", default-features = false }
-pallet-nfts-runtime-api = { version = "30.0.0", default-features = false }
-pallet-nis = { version = "45.0.0", default-features = false }
-pallet-migrations = { version = "15.0.0", default-features = false }
-pallet-nomination-pools = { version = "43.0.2", default-features = false }
-pallet-nomination-pools-benchmarking = { version = "43.0.0", default-features = false }
-pallet-nomination-pools-runtime-api = { version = "41.0.0", default-features = false }
-pallet-offences = { version = "44.0.0", default-features = false }
-pallet-offences-benchmarking = { version = "45.0.0", default-features = false }
-pallet-parameters = { version = "0.16.0", default-features = false }
-pallet-preimage = { version = "45.0.0", default-features = false }
-pallet-proxy = { version = "45.0.0", default-features = false }
-pallet-ranked-collective = { version = "45.0.0", default-features = false }
-pallet-recovery = { version = "45.0.0", default-features = false }
-pallet-referenda = { version = "45.0.0", default-features = false }
-pallet-remote-proxy = { path = "pallets/remote-proxy", default-features = false }
-pallet-revive = { version = "0.12.2", default-features = false }
-pallet-salary = { version = "30.0.0", default-features = false }
-pallet-scheduler = { version = "46.0.0", default-features = false }
-pallet-session = { version = "45.2.0", default-features = false }
-pallet-session-benchmarking = { version = "45.0.0", default-features = false }
-pallet-society = { version = "45.0.0", default-features = false }
-pallet-staking = { version = "45.0.0", default-features = false }
-pallet-delegated-staking = { version = "12.0.0", default-features = false }
-pallet-staking-async-ah-client = { version = "0.7.2", default-features = false }
-pallet-staking-async-rc-client = { version = "0.7.2", default-features = false }
-pallet-staking-reward-curve = { version = "12.0.0" }
-pallet-staking-reward-fn = { version = "24.0.0", default-features = false }
-pallet-staking-runtime-api = { version = "30.0.0", default-features = false }
-pallet-state-trie-migration = { version = "50.0.0", default-features = false }
-pallet-sudo = { version = "45.0.0", default-features = false }
-pallet-timestamp = { version = "44.0.0", default-features = false }
-pallet-transaction-payment = { version = "45.0.0", default-features = false }
-pallet-transaction-payment-rpc-runtime-api = { version = "45.0.0", default-features = false }
-pallet-treasury = { version = "44.0.0", default-features = false }
-pallet-uniques = { version = "45.0.0", default-features = false }
-pallet-utility = { version = "45.0.0", default-features = false }
-pallet-vesting = { version = "45.0.0", default-features = false }
-pallet-whitelist = { version = "44.0.0", default-features = false }
-pallet-xcm = { version = "25.0.0", default-features = false }
-pallet-xcm-benchmarks = { version = "25.0.0", default-features = false }
-pallet-xcm-precompiles = { version = "0.3.1", default-features = false }
-pallet-xcm-bridge-hub = { version = "0.21.0", default-features = false }
-pallet-xcm-bridge-hub-router = { version = "0.23.0", default-features = false }
-parachain-info = { version = "0.25.0", default-features = false, package = "staging-parachain-info" }
-parachains-common = { version = "27.1.0", default-features = false }
-parachains-runtimes-test-utils = { version = "28.0.0" }
-paste = { version = "1.0.14" }
-penpal-emulated-chain = { path = "integration-tests/emulated/chains/parachains/testing/penpal" }
-penpal-runtime = { version = "0.35.1" }
-people-kusama-emulated-chain = { path = "integration-tests/emulated/chains/parachains/people/people-kusama" }
-people-kusama-runtime = { path = "system-parachains/people/people-kusama" }
-people-polkadot-emulated-chain = { path = "integration-tests/emulated/chains/parachains/people/people-polkadot" }
-people-polkadot-runtime = { path = "system-parachains/people/people-polkadot" }
-polkadot-core-primitives = { version = "21.0.0", default-features = false }
-polkadot-emulated-chain = { path = "integration-tests/emulated/chains/relays/polkadot" }
-polkadot-parachain-primitives = { version = "20.0.0", default-features = false }
-polkadot-primitives = { version = "22.0.0", default-features = false }
-polkadot-runtime = { path = "relay/polkadot" }
-polkadot-runtime-common = { version = "24.0.0", default-features = false }
-polkadot-runtime-constants = { path = "relay/polkadot/constants", default-features = false }
-polkadot-system-emulated-network = { path = "integration-tests/emulated/networks/polkadot-system" }
-primitive-types = { version = "0.13.1", default-features = false }
-frame-metadata-hash-extension = { version = "0.13.0", default-features = false }
-remote-externalities = { version = "0.56.0", package = "frame-remote-externalities" }
-runtime-parachains = { version = "24.0.0", default-features = false, package = "polkadot-runtime-parachains" }
-sc-chain-spec = { version = "48.0.0" }
-sc-network = { version = "0.55.1" }
-scale-info = { version = "2.11.6", default-features = false }
-separator = { version = "0.4.1" }
-serde = { version = "1.0.214" }
-serde_json = { version = "1.0.132", default-features = false }
-smallvec = { version = "1.13.1" }
-snowbridge-beacon-primitives = { version = "0.18.1", default-features = false }
-snowbridge-core = { version = "0.18.1", default-features = false }
-snowbridge-merkle-tree = { version = "0.6.0", default-features = false }
-snowbridge-outbound-queue-runtime-api = { version = "0.18.0", default-features = false }
-snowbridge-outbound-queue-v2-runtime-api = { version = "0.7.0", default-features = false }
-snowbridge-outbound-queue-primitives = { version = "0.7.1", default-features = false }
-snowbridge-pallet-ethereum-client = { version = "0.18.2", default-features = false }
-snowbridge-pallet-inbound-queue = { version = "0.18.0", default-features = false }
-snowbridge-pallet-inbound-queue-v2 = { version = "0.7.0", default-features = false }
-snowbridge-pallet-inbound-queue-fixtures = { version = "0.26.1", default-features = false }
-snowbridge-pallet-inbound-queue-v2-fixtures = { version = "0.7.1", default-features = false }
-snowbridge-pallet-ethereum-client-fixtures = { version = "0.26.1" }
-snowbridge-pallet-outbound-queue = { version = "0.18.0", default-features = false }
-snowbridge-pallet-outbound-queue-v2 = { version = "0.7.1", default-features = false }
-snowbridge-pallet-system = { version = "0.18.0", default-features = false }
-snowbridge-pallet-system-v2 = { version = "0.7.0", default-features = false }
-snowbridge-pallet-system-frontend = { version = "0.7.0", default-features = false }
-snowbridge-inbound-queue-primitives = { version = "0.7.0", default-features = false }
-snowbridge-runtime-common = { version = "0.19.0", default-features = false }
-snowbridge-runtime-test-common = { version = "0.21.0" }
-snowbridge-system-runtime-api = { version = "0.18.0", default-features = false }
-snowbridge-system-v2-runtime-api = { version = "0.7.0", default-features = false }
-sp-api = { version = "40.0.0", default-features = false }
-sp-application-crypto = { version = "44.0.0", default-features = false }
-sp-arithmetic = { version = "28.0.0", default-features = false }
-sp-block-builder = { version = "40.0.0", default-features = false }
-sp-consensus-aura = { version = "0.46.0", default-features = false }
-sp-core = { version = "39.0.0", default-features = false }
-sp-debug-derive = { version = "14.0.0", default-features = false }
-sp-genesis-builder = { version = "0.21.0", default-features = false }
-sp-inherents = { version = "40.0.0", default-features = false }
-sp-io = { version = "44.0.0", default-features = false }
-sp-keyring = { version = "45.0.0" }
-sp-npos-elections = { version = "40.0.0", default-features = false }
-sp-offchain = { version = "40.0.0", default-features = false }
-sp-runtime = { version = "45.0.0", default-features = false }
-sp-session = { version = "42.0.0", default-features = false }
-sp-staking = { version = "42.1.0", default-features = false }
-sp-std = { version = "14.0.0", default-features = false }
-sp-state-machine = { version = "0.49.0", default-features = false }
-sp-storage = { version = "22.0.0", default-features = false }
-sp-tracing = { version = "19.0.0", default-features = false }
-sp-transaction-pool = { version = "40.0.0", default-features = false }
-sp-trie = { version = "42.0.1", default-features = false }
-sp-version = { version = "43.0.0", default-features = false }
-sp-weights = { version = "33.2.0", default-features = false }
-substrate-wasm-builder = { version = "31.1.0" }
-system-parachains-constants = { path = "system-parachains/constants", default-features = false }
-system-parachains-common = { path = "system-parachains/common", default-features = false }
-tokio = { version = "1.45.0" }
-xcm = { version = "21.0.0", default-features = false, package = "staging-xcm" }
-xcm-builder = { version = "25.0.0", default-features = false, package = "staging-xcm-builder" }
-xcm-emulator = { version = "0.26.0" }
-xcm-executor = { version = "24.0.1", default-features = false, package = "staging-xcm-executor" }
-xcm-runtime-apis = { version = "0.12.0", default-features = false }
-anyhow = { version = "1.0.82" }
-subxt = { version = "0.43.0" }
-tracing-subscriber = { version = "0.3.18" }
-zombienet-sdk = { version = "0.4.2" }
-tuplex = { version = "0.1.0", default-features = false }
-relay-common = { path = "relay/common", default-features = false }
-ss58-registry = { version = "1.47.0" }
-
 [workspace]
 resolver = "2"
+members = [ "chain-spec-generator", "integration-tests/emulated/chains/parachains/assets/asset-hub-kusama", "integration-tests/emulated/chains/parachains/assets/asset-hub-polkadot", "integration-tests/emulated/chains/parachains/bridges/bridge-hub-kusama", "integration-tests/emulated/chains/parachains/bridges/bridge-hub-polkadot", "integration-tests/emulated/chains/parachains/collectives/collectives-polkadot", "integration-tests/emulated/chains/parachains/coretime/coretime-kusama", "integration-tests/emulated/chains/parachains/coretime/coretime-polkadot", "integration-tests/emulated/chains/parachains/encointer/encointer-kusama", "integration-tests/emulated/chains/parachains/people/people-kusama", "integration-tests/emulated/chains/parachains/people/people-polkadot", "integration-tests/emulated/chains/parachains/testing/penpal", "integration-tests/emulated/chains/relays/kusama", "integration-tests/emulated/chains/relays/polkadot", "integration-tests/emulated/helpers", "integration-tests/emulated/networks/kusama-polkadot-system", "integration-tests/emulated/networks/kusama-system", "integration-tests/emulated/networks/polkadot-system", "integration-tests/emulated/tests/assets/asset-hub-kusama", "integration-tests/emulated/tests/assets/asset-hub-polkadot", "integration-tests/emulated/tests/bridges/bridge-hub-kusama", "integration-tests/emulated/tests/bridges/bridge-hub-polkadot", "integration-tests/emulated/tests/collectives/collectives-polkadot", "integration-tests/emulated/tests/coretime/coretime-kusama", "integration-tests/emulated/tests/coretime/coretime-polkadot", "integration-tests/emulated/tests/encointer/encointer-kusama", "integration-tests/emulated/tests/governance/kusama", "integration-tests/emulated/tests/governance/polkadot", "integration-tests/emulated/tests/people/people-kusama", "integration-tests/emulated/tests/people/people-polkadot", "integration-tests/zombienet", "pallets/ah-migrator", "pallets/ah-ops", "pallets/rc-migrator", "pallets/remote-proxy", "relay/common", "relay/kusama", "relay/kusama/constants", "relay/polkadot", "relay/polkadot/constants", "system-parachains/asset-hubs/asset-hub-kusama", "system-parachains/asset-hubs/asset-hub-kusama/primitives", "system-parachains/asset-hubs/asset-hub-polkadot", "system-parachains/asset-hubs/asset-hub-polkadot/primitives", "system-parachains/bridge-hubs/bridge-hub-kusama", "system-parachains/bridge-hubs/bridge-hub-kusama/primitives", "system-parachains/bridge-hubs/bridge-hub-polkadot", "system-parachains/bridge-hubs/bridge-hub-polkadot/primitives", "system-parachains/collectives/collectives-polkadot", "system-parachains/collectives/collectives-polkadot/constants", "system-parachains/common", "system-parachains/constants", "system-parachains/coretime/coretime-kusama", "system-parachains/coretime/coretime-polkadot", "system-parachains/encointer", "system-parachains/gluttons/glutton-kusama", "system-parachains/people/people-kusama", "system-parachains/people/people-polkadot",]
 
-members = [
-	"chain-spec-generator",
-	"integration-tests/emulated/chains/parachains/assets/asset-hub-kusama",
-	"integration-tests/emulated/chains/parachains/assets/asset-hub-polkadot",
-	"integration-tests/emulated/chains/parachains/bridges/bridge-hub-kusama",
-	"integration-tests/emulated/chains/parachains/bridges/bridge-hub-polkadot",
-	"integration-tests/emulated/chains/parachains/collectives/collectives-polkadot",
-	"integration-tests/emulated/chains/parachains/coretime/coretime-kusama",
-	"integration-tests/emulated/chains/parachains/coretime/coretime-polkadot",
-	"integration-tests/emulated/chains/parachains/encointer/encointer-kusama",
-	"integration-tests/emulated/chains/parachains/people/people-kusama",
-	"integration-tests/emulated/chains/parachains/people/people-polkadot",
-	"integration-tests/emulated/chains/parachains/testing/penpal",
-	"integration-tests/emulated/chains/relays/kusama",
-	"integration-tests/emulated/chains/relays/polkadot",
-	"integration-tests/emulated/helpers",
-	"integration-tests/emulated/networks/kusama-polkadot-system",
-	"integration-tests/emulated/networks/kusama-system",
-	"integration-tests/emulated/networks/polkadot-system",
-	"integration-tests/emulated/tests/assets/asset-hub-kusama",
-	"integration-tests/emulated/tests/assets/asset-hub-polkadot",
-	"integration-tests/emulated/tests/bridges/bridge-hub-kusama",
-	"integration-tests/emulated/tests/bridges/bridge-hub-polkadot",
-	"integration-tests/emulated/tests/collectives/collectives-polkadot",
-	"integration-tests/emulated/tests/coretime/coretime-kusama",
-	"integration-tests/emulated/tests/coretime/coretime-polkadot",
-	"integration-tests/emulated/tests/encointer/encointer-kusama",
-	"integration-tests/emulated/tests/governance/kusama",
-	"integration-tests/emulated/tests/governance/polkadot",
-	"integration-tests/emulated/tests/people/people-kusama",
-	"integration-tests/emulated/tests/people/people-polkadot",
-	"integration-tests/zombienet",
-	"pallets/ah-migrator",
-	"pallets/ah-ops",
-	"pallets/rc-migrator",
-	"pallets/remote-proxy",
-	"relay/common",
-	"relay/kusama",
-	"relay/kusama/constants",
-	"relay/polkadot",
-	"relay/polkadot/constants",
-	"system-parachains/asset-hubs/asset-hub-kusama",
-	"system-parachains/asset-hubs/asset-hub-kusama/primitives",
-	"system-parachains/asset-hubs/asset-hub-polkadot",
-	"system-parachains/asset-hubs/asset-hub-polkadot/primitives",
-	"system-parachains/bridge-hubs/bridge-hub-kusama",
-	"system-parachains/bridge-hubs/bridge-hub-kusama/primitives",
-	"system-parachains/bridge-hubs/bridge-hub-polkadot",
-	"system-parachains/bridge-hubs/bridge-hub-polkadot/primitives",
-	"system-parachains/collectives/collectives-polkadot",
-	"system-parachains/collectives/collectives-polkadot/constants",
-	"system-parachains/common",
-	"system-parachains/constants",
-	"system-parachains/coretime/coretime-kusama",
-	"system-parachains/coretime/coretime-polkadot",
-	"system-parachains/encointer",
-	"system-parachains/gluttons/glutton-kusama",
-	"system-parachains/people/people-kusama",
-	"system-parachains/people/people-polkadot",
-]
+[workspace.package]
+version = "1.0.0"
+authors = [ "Polkadot Fellowship",]
+edition = "2021"
+repository = "https://github.com/polkadot-fellows/runtimes.git"
+license = "GPL-3.0-only"
 
 [profile.release]
-# Polkadot runtime requires unwinding.
 panic = "unwind"
 opt-level = 3
 
@@ -357,3 +17,2792 @@ opt-level = 3
 inherits = "release"
 lto = true
 codegen-units = 1
+
+[workspace.dependencies.pallet-ah-migrator]
+path = "pallets/ah-migrator"
+default-features = false
+
+[workspace.dependencies.pallet-rc-migrator]
+path = "pallets/rc-migrator"
+default-features = false
+
+[workspace.dependencies.pallet-ah-ops]
+path = "pallets/ah-ops"
+default-features = false
+
+[workspace.dependencies.pallet-election-provider-multi-block]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/election-provider-multi-block"
+
+[workspace.dependencies.pallet-staking-async]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/staking-async"
+
+[workspace.dependencies.hex]
+version = "0.4.3"
+default-features = false
+
+[workspace.dependencies.rand]
+version = "0.9.2"
+
+[workspace.dependencies.impl-trait-for-tuples]
+version = "0.2.3"
+default-features = false
+
+[workspace.dependencies.assert_matches]
+version = "1.5.0"
+
+[workspace.dependencies.approx]
+version = "0.5.1"
+
+[workspace.dependencies.array-bytes]
+version = "9.3.0"
+
+[workspace.dependencies.asset-hub-kusama-emulated-chain]
+path = "integration-tests/emulated/chains/parachains/assets/asset-hub-kusama"
+
+[workspace.dependencies.asset-hub-kusama-runtime]
+path = "system-parachains/asset-hubs/asset-hub-kusama"
+
+[workspace.dependencies.asset-hub-polkadot-emulated-chain]
+path = "integration-tests/emulated/chains/parachains/assets/asset-hub-polkadot"
+
+[workspace.dependencies.asset-hub-polkadot-runtime]
+path = "system-parachains/asset-hubs/asset-hub-polkadot"
+
+[workspace.dependencies.asset-test-utils]
+path = "../polkadot-sdk/cumulus/parachains/runtimes/assets/test-utils"
+
+[workspace.dependencies.assets-common]
+default-features = false
+path = "../polkadot-sdk/cumulus/parachains/runtimes/assets/common"
+
+[workspace.dependencies.authority-discovery-primitives]
+default-features = false
+package = "sp-authority-discovery"
+path = "../polkadot-sdk/substrate/primitives/authority-discovery"
+
+[workspace.dependencies.babe-primitives]
+default-features = false
+package = "sp-consensus-babe"
+path = "../polkadot-sdk/substrate/primitives/consensus/babe"
+
+[workspace.dependencies.beefy-primitives]
+default-features = false
+package = "sp-consensus-beefy"
+path = "../polkadot-sdk/substrate/primitives/consensus/beefy"
+
+[workspace.dependencies.binary-merkle-tree]
+default-features = false
+path = "../polkadot-sdk/substrate/utils/binary-merkle-tree"
+
+[workspace.dependencies.bp-asset-hub-kusama]
+path = "system-parachains/asset-hubs/asset-hub-kusama/primitives"
+default-features = false
+
+[workspace.dependencies.bp-asset-hub-polkadot]
+path = "system-parachains/asset-hubs/asset-hub-polkadot/primitives"
+default-features = false
+
+[workspace.dependencies.bp-bridge-hub-cumulus]
+default-features = false
+path = "../polkadot-sdk/bridges/chains/chain-cumulus"
+
+[workspace.dependencies.bp-bridge-hub-kusama]
+path = "system-parachains/bridge-hubs/bridge-hub-kusama/primitives"
+default-features = false
+
+[workspace.dependencies.bp-bridge-hub-polkadot]
+path = "system-parachains/bridge-hubs/bridge-hub-polkadot/primitives"
+default-features = false
+
+[workspace.dependencies.bp-header-chain]
+default-features = false
+path = "../polkadot-sdk/bridges/primitives/header-chain"
+
+[workspace.dependencies.bp-messages]
+default-features = false
+path = "../polkadot-sdk/bridges/primitives/messages"
+
+[workspace.dependencies.bp-parachains]
+default-features = false
+path = "../polkadot-sdk/bridges/primitives/parachains"
+
+[workspace.dependencies.bp-polkadot-core]
+default-features = false
+path = "../polkadot-sdk/bridges/primitives/polkadot-core"
+
+[workspace.dependencies.bp-relayers]
+default-features = false
+path = "../polkadot-sdk/bridges/primitives/relayers"
+
+[workspace.dependencies.bp-runtime]
+default-features = false
+path = "../polkadot-sdk/bridges/primitives/runtime"
+
+[workspace.dependencies.bp-xcm-bridge-hub]
+default-features = false
+path = "../polkadot-sdk/bridges/primitives/xcm-bridge-hub"
+
+[workspace.dependencies.bp-xcm-bridge-hub-router]
+default-features = false
+path = "../polkadot-sdk/bridges/primitives/xcm-bridge-hub-router"
+
+[workspace.dependencies.bridge-hub-common]
+default-features = false
+path = "../polkadot-sdk/cumulus/parachains/runtimes/bridge-hubs/common"
+
+[workspace.dependencies.bridge-hub-kusama-emulated-chain]
+path = "integration-tests/emulated/chains/parachains/bridges/bridge-hub-kusama"
+
+[workspace.dependencies.bridge-hub-kusama-runtime]
+path = "system-parachains/bridge-hubs/bridge-hub-kusama"
+
+[workspace.dependencies.bridge-hub-polkadot-emulated-chain]
+path = "integration-tests/emulated/chains/parachains/bridges/bridge-hub-polkadot"
+
+[workspace.dependencies.bridge-hub-polkadot-runtime]
+path = "system-parachains/bridge-hubs/bridge-hub-polkadot"
+
+[workspace.dependencies.bridge-hub-test-utils]
+path = "../polkadot-sdk/cumulus/parachains/runtimes/bridge-hubs/test-utils"
+
+[workspace.dependencies.bridge-runtime-common]
+default-features = false
+path = "../polkadot-sdk/bridges/bin/runtime-common"
+
+[workspace.dependencies.clap]
+version = "4.5.0"
+
+[workspace.dependencies.codec]
+package = "parity-scale-codec"
+version = "3.7.5"
+default-features = false
+
+[workspace.dependencies.collectives-polkadot-emulated-chain]
+path = "integration-tests/emulated/chains/parachains/collectives/collectives-polkadot"
+
+[workspace.dependencies.collectives-polkadot-runtime]
+path = "system-parachains/collectives/collectives-polkadot"
+
+[workspace.dependencies.collectives-polkadot-runtime-constants]
+path = "system-parachains/collectives/collectives-polkadot/constants"
+
+[workspace.dependencies.coretime-kusama-emulated-chain]
+path = "integration-tests/emulated/chains/parachains/coretime/coretime-kusama"
+
+[workspace.dependencies.coretime-kusama-runtime]
+path = "system-parachains/coretime/coretime-kusama"
+
+[workspace.dependencies.coretime-polkadot-emulated-chain]
+path = "integration-tests/emulated/chains/parachains/coretime/coretime-polkadot"
+
+[workspace.dependencies.coretime-polkadot-runtime]
+path = "system-parachains/coretime/coretime-polkadot"
+
+[workspace.dependencies.cumulus-pallet-aura-ext]
+default-features = false
+path = "../polkadot-sdk/cumulus/pallets/aura-ext"
+
+[workspace.dependencies.cumulus-pallet-parachain-system]
+default-features = false
+path = "../polkadot-sdk/cumulus/pallets/parachain-system"
+
+[workspace.dependencies.cumulus-pallet-weight-reclaim]
+default-features = false
+path = "../polkadot-sdk/cumulus/pallets/weight-reclaim"
+
+[workspace.dependencies.cumulus-pallet-session-benchmarking]
+default-features = false
+path = "../polkadot-sdk/cumulus/pallets/session-benchmarking"
+
+[workspace.dependencies.cumulus-pallet-xcm]
+default-features = false
+path = "../polkadot-sdk/cumulus/pallets/xcm"
+
+[workspace.dependencies.cumulus-pallet-xcmp-queue]
+default-features = false
+path = "../polkadot-sdk/cumulus/pallets/xcmp-queue"
+
+[workspace.dependencies.cumulus-primitives-aura]
+default-features = false
+path = "../polkadot-sdk/cumulus/primitives/aura"
+
+[workspace.dependencies.cumulus-primitives-core]
+default-features = false
+path = "../polkadot-sdk/cumulus/primitives/core"
+
+[workspace.dependencies.cumulus-primitives-utility]
+default-features = false
+path = "../polkadot-sdk/cumulus/primitives/utility"
+
+[workspace.dependencies.emulated-integration-tests-common]
+path = "../polkadot-sdk/cumulus/parachains/integration-tests/emulated/common"
+
+[workspace.dependencies.encointer-balances-tx-payment]
+version = "~21.1.0"
+default-features = false
+
+[workspace.dependencies.encointer-balances-tx-payment-rpc-runtime-api]
+version = "~21.1.0"
+default-features = false
+
+[workspace.dependencies.encointer-kusama-runtime]
+path = "system-parachains/encointer"
+
+[workspace.dependencies.encointer-kusama-emulated-chain]
+path = "integration-tests/emulated/chains/parachains/encointer/encointer-kusama"
+
+[workspace.dependencies.encointer-primitives]
+version = "~21.5.0"
+default-features = false
+
+[workspace.dependencies.enumflags2]
+version = "0.7.7"
+
+[workspace.dependencies.frame-benchmarking]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/benchmarking"
+
+[workspace.dependencies.frame-election-provider-support]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/election-provider-support"
+
+[workspace.dependencies.frame-executive]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/executive"
+
+[workspace.dependencies.frame-support]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/support"
+
+[workspace.dependencies.frame-system]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/system"
+
+[workspace.dependencies.frame-system-benchmarking]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/system/benchmarking"
+
+[workspace.dependencies.frame-system-rpc-runtime-api]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/system/rpc/runtime-api"
+
+[workspace.dependencies.frame-try-runtime]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/try-runtime"
+
+[workspace.dependencies.glutton-kusama-runtime]
+path = "system-parachains/gluttons/glutton-kusama"
+
+[workspace.dependencies.grandpa]
+package = "sc-consensus-grandpa"
+path = "../polkadot-sdk/substrate/client/consensus/grandpa"
+
+[workspace.dependencies.grandpa-primitives]
+default-features = false
+package = "sp-consensus-grandpa"
+path = "../polkadot-sdk/substrate/primitives/consensus/grandpa"
+
+[workspace.dependencies.hex-literal]
+version = "0.4.1"
+
+[workspace.dependencies.integration-tests-helpers]
+path = "integration-tests/emulated/helpers"
+
+[workspace.dependencies.kusama-emulated-chain]
+path = "integration-tests/emulated/chains/relays/kusama"
+
+[workspace.dependencies.kusama-polkadot-system-emulated-network]
+path = "integration-tests/emulated/networks/kusama-polkadot-system"
+
+[workspace.dependencies.kusama-runtime]
+path = "relay/kusama"
+package = "staging-kusama-runtime"
+
+[workspace.dependencies.kusama-runtime-constants]
+path = "relay/kusama/constants"
+default-features = false
+
+[workspace.dependencies.kusama-system-emulated-network]
+path = "integration-tests/emulated/networks/kusama-system"
+
+[workspace.dependencies.log]
+version = "0.4.22"
+default-features = false
+
+[workspace.dependencies.pallet-alliance]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/alliance"
+
+[workspace.dependencies.pallet-asset-conversion]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/asset-conversion"
+
+[workspace.dependencies.pallet-asset-conversion-tx-payment]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/transaction-payment/asset-conversion-tx-payment"
+
+[workspace.dependencies.pallet-asset-rate]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/asset-rate"
+
+[workspace.dependencies.pallet-asset-tx-payment]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/transaction-payment/asset-tx-payment"
+
+[workspace.dependencies.pallet-assets]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/assets"
+
+[workspace.dependencies.pallet-assets-holder]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/assets-holder"
+
+[workspace.dependencies.pallet-assets-precompiles]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/assets/precompiles"
+
+[workspace.dependencies.pallet-aura]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/aura"
+
+[workspace.dependencies.pallet-authority-discovery]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/authority-discovery"
+
+[workspace.dependencies.pallet-authorship]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/authorship"
+
+[workspace.dependencies.pallet-babe]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/babe"
+
+[workspace.dependencies.pallet-bags-list]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/bags-list"
+
+[workspace.dependencies.pallet-balances]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/balances"
+
+[workspace.dependencies.pallet-beefy]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/beefy"
+
+[workspace.dependencies.pallet-beefy-mmr]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/beefy-mmr"
+
+[workspace.dependencies.pallet-bounties]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/bounties"
+
+[workspace.dependencies.pallet-bridge-grandpa]
+default-features = false
+path = "../polkadot-sdk/bridges/modules/grandpa"
+
+[workspace.dependencies.pallet-bridge-messages]
+default-features = false
+path = "../polkadot-sdk/bridges/modules/messages"
+
+[workspace.dependencies.pallet-bridge-parachains]
+default-features = false
+path = "../polkadot-sdk/bridges/modules/parachains"
+
+[workspace.dependencies.pallet-bridge-relayers]
+default-features = false
+path = "../polkadot-sdk/bridges/modules/relayers"
+
+[workspace.dependencies.pallet-broker]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/broker"
+
+[workspace.dependencies.pallet-child-bounties]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/child-bounties"
+
+[workspace.dependencies.pallet-collator-selection]
+default-features = false
+path = "../polkadot-sdk/cumulus/pallets/collator-selection"
+
+[workspace.dependencies.pallet-collective]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/collective"
+
+[workspace.dependencies.pallet-conviction-voting]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/conviction-voting"
+
+[workspace.dependencies.pallet-dap]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/dap"
+
+[workspace.dependencies.pallet-core-fellowship]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/core-fellowship"
+
+[workspace.dependencies.pallet-election-provider-multi-phase]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/election-provider-multi-phase"
+
+[workspace.dependencies.pallet-election-provider-support-benchmarking]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/election-provider-support/benchmarking"
+
+[workspace.dependencies.pallet-encointer-balances]
+version = "~21.2.0"
+default-features = false
+
+[workspace.dependencies.pallet-encointer-bazaar]
+version = "~21.1.0"
+default-features = false
+
+[workspace.dependencies.pallet-encointer-bazaar-rpc-runtime-api]
+version = "~21.1.0"
+default-features = false
+
+[workspace.dependencies.pallet-encointer-ceremonies]
+version = "~21.1.0"
+default-features = false
+
+[workspace.dependencies.pallet-encointer-ceremonies-rpc-runtime-api]
+version = "~21.1.0"
+default-features = false
+
+[workspace.dependencies.pallet-encointer-communities]
+version = "~21.1.0"
+default-features = false
+
+[workspace.dependencies.pallet-encointer-communities-rpc-runtime-api]
+version = "~21.1.0"
+default-features = false
+
+[workspace.dependencies.pallet-encointer-democracy]
+version = "~21.7.0"
+default-features = false
+
+[workspace.dependencies.pallet-encointer-faucet]
+version = "~21.2.0"
+default-features = false
+
+[workspace.dependencies.pallet-encointer-offline-payment]
+version = "~21.0.0"
+default-features = false
+
+[workspace.dependencies.pallet-encointer-reputation-commitments]
+version = "~21.1.1"
+default-features = false
+
+[workspace.dependencies.pallet-encointer-reputation-rings]
+version = "~21.0.0"
+default-features = false
+
+[workspace.dependencies.pallet-encointer-scheduler]
+version = "~21.1.0"
+default-features = false
+
+[workspace.dependencies.pallet-encointer-treasuries]
+version = "~21.7.0"
+default-features = false
+
+[workspace.dependencies.pallet-encointer-treasuries-rpc-runtime-api]
+version = "~21.3.0"
+default-features = false
+
+[workspace.dependencies.pallet-fast-unstake]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/fast-unstake"
+
+[workspace.dependencies.pallet-glutton]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/glutton"
+
+[workspace.dependencies.pallet-grandpa]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/grandpa"
+
+[workspace.dependencies.pallet-identity]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/identity"
+
+[workspace.dependencies.pallet-indices]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/indices"
+
+[workspace.dependencies.pallet-insecure-randomness-collective-flip]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/insecure-randomness-collective-flip"
+
+[workspace.dependencies.pallet-membership]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/membership"
+
+[workspace.dependencies.pallet-message-queue]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/message-queue"
+
+[workspace.dependencies.pallet-mmr]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/merkle-mountain-range"
+
+[workspace.dependencies.pallet-multi-asset-bounties]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/multi-asset-bounties"
+
+[workspace.dependencies.pallet-multisig]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/multisig"
+
+[workspace.dependencies.pallet-nft-fractionalization]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/nft-fractionalization"
+
+[workspace.dependencies.pallet-nfts]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/nfts"
+
+[workspace.dependencies.pallet-nfts-runtime-api]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/nfts/runtime-api"
+
+[workspace.dependencies.pallet-nis]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/nis"
+
+[workspace.dependencies.pallet-migrations]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/migrations"
+
+[workspace.dependencies.pallet-nomination-pools]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/nomination-pools"
+
+[workspace.dependencies.pallet-nomination-pools-benchmarking]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/nomination-pools/benchmarking"
+
+[workspace.dependencies.pallet-nomination-pools-runtime-api]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/nomination-pools/runtime-api"
+
+[workspace.dependencies.pallet-offences]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/offences"
+
+[workspace.dependencies.pallet-offences-benchmarking]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/offences/benchmarking"
+
+[workspace.dependencies.pallet-parameters]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/parameters"
+
+[workspace.dependencies.pallet-preimage]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/preimage"
+
+[workspace.dependencies.pallet-proxy]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/proxy"
+
+[workspace.dependencies.pallet-ranked-collective]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/ranked-collective"
+
+[workspace.dependencies.pallet-recovery]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/recovery"
+
+[workspace.dependencies.pallet-referenda]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/referenda"
+
+[workspace.dependencies.pallet-remote-proxy]
+path = "pallets/remote-proxy"
+default-features = false
+
+[workspace.dependencies.pallet-revive]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/revive"
+
+[workspace.dependencies.pallet-salary]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/salary"
+
+[workspace.dependencies.pallet-scheduler]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/scheduler"
+
+[workspace.dependencies.pallet-session]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/session"
+
+[workspace.dependencies.pallet-session-benchmarking]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/session/benchmarking"
+
+[workspace.dependencies.pallet-society]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/society"
+
+[workspace.dependencies.pallet-staking]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/staking"
+
+[workspace.dependencies.pallet-delegated-staking]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/delegated-staking"
+
+[workspace.dependencies.pallet-staking-async-ah-client]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/staking-async/ah-client"
+
+[workspace.dependencies.pallet-staking-async-rc-client]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/staking-async/rc-client"
+
+[workspace.dependencies.pallet-staking-reward-curve]
+path = "../polkadot-sdk/substrate/frame/staking/reward-curve"
+
+[workspace.dependencies.pallet-staking-reward-fn]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/staking/reward-fn"
+
+[workspace.dependencies.pallet-staking-runtime-api]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/staking/runtime-api"
+
+[workspace.dependencies.pallet-state-trie-migration]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/state-trie-migration"
+
+[workspace.dependencies.pallet-sudo]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/sudo"
+
+[workspace.dependencies.pallet-timestamp]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/timestamp"
+
+[workspace.dependencies.pallet-transaction-payment]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/transaction-payment"
+
+[workspace.dependencies.pallet-transaction-payment-rpc-runtime-api]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/transaction-payment/rpc/runtime-api"
+
+[workspace.dependencies.pallet-treasury]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/treasury"
+
+[workspace.dependencies.pallet-uniques]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/uniques"
+
+[workspace.dependencies.pallet-utility]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/utility"
+
+[workspace.dependencies.pallet-vesting]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/vesting"
+
+[workspace.dependencies.pallet-whitelist]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/whitelist"
+
+[workspace.dependencies.pallet-xcm]
+default-features = false
+path = "../polkadot-sdk/polkadot/xcm/pallet-xcm"
+
+[workspace.dependencies.pallet-xcm-benchmarks]
+default-features = false
+path = "../polkadot-sdk/polkadot/xcm/pallet-xcm-benchmarks"
+
+[workspace.dependencies.pallet-xcm-precompiles]
+default-features = false
+path = "../polkadot-sdk/polkadot/xcm/pallet-xcm/precompiles"
+
+[workspace.dependencies.pallet-xcm-bridge-hub]
+default-features = false
+path = "../polkadot-sdk/bridges/modules/xcm-bridge-hub"
+
+[workspace.dependencies.pallet-xcm-bridge-hub-router]
+default-features = false
+path = "../polkadot-sdk/bridges/modules/xcm-bridge-hub-router"
+
+[workspace.dependencies.parachain-info]
+default-features = false
+package = "staging-parachain-info"
+path = "../polkadot-sdk/cumulus/parachains/pallets/parachain-info"
+
+[workspace.dependencies.parachains-common]
+default-features = false
+path = "../polkadot-sdk/cumulus/parachains/common"
+
+[workspace.dependencies.parachains-runtimes-test-utils]
+path = "../polkadot-sdk/cumulus/parachains/runtimes/test-utils"
+
+[workspace.dependencies.paste]
+version = "1.0.14"
+
+[workspace.dependencies.penpal-emulated-chain]
+path = "integration-tests/emulated/chains/parachains/testing/penpal"
+
+[workspace.dependencies.penpal-runtime]
+path = "../polkadot-sdk/cumulus/parachains/runtimes/testing/penpal"
+
+[workspace.dependencies.people-kusama-emulated-chain]
+path = "integration-tests/emulated/chains/parachains/people/people-kusama"
+
+[workspace.dependencies.people-kusama-runtime]
+path = "system-parachains/people/people-kusama"
+
+[workspace.dependencies.people-polkadot-emulated-chain]
+path = "integration-tests/emulated/chains/parachains/people/people-polkadot"
+
+[workspace.dependencies.people-polkadot-runtime]
+path = "system-parachains/people/people-polkadot"
+
+[workspace.dependencies.polkadot-core-primitives]
+default-features = false
+path = "../polkadot-sdk/polkadot/core-primitives"
+
+[workspace.dependencies.polkadot-emulated-chain]
+path = "integration-tests/emulated/chains/relays/polkadot"
+
+[workspace.dependencies.polkadot-parachain-primitives]
+default-features = false
+path = "../polkadot-sdk/polkadot/parachain"
+
+[workspace.dependencies.polkadot-primitives]
+default-features = false
+path = "../polkadot-sdk/polkadot/primitives"
+
+[workspace.dependencies.polkadot-runtime]
+path = "relay/polkadot"
+
+[workspace.dependencies.polkadot-runtime-common]
+default-features = false
+path = "../polkadot-sdk/polkadot/runtime/common"
+
+[workspace.dependencies.polkadot-runtime-constants]
+path = "relay/polkadot/constants"
+default-features = false
+
+[workspace.dependencies.polkadot-system-emulated-network]
+path = "integration-tests/emulated/networks/polkadot-system"
+
+[workspace.dependencies.primitive-types]
+version = "0.13.1"
+default-features = false
+
+[workspace.dependencies.frame-metadata-hash-extension]
+default-features = false
+path = "../polkadot-sdk/substrate/frame/metadata-hash-extension"
+
+[workspace.dependencies.remote-externalities]
+package = "frame-remote-externalities"
+path = "../polkadot-sdk/substrate/utils/frame/remote-externalities"
+
+[workspace.dependencies.runtime-parachains]
+default-features = false
+package = "polkadot-runtime-parachains"
+path = "../polkadot-sdk/polkadot/runtime/parachains"
+
+[workspace.dependencies.sc-chain-spec]
+path = "../polkadot-sdk/substrate/client/chain-spec"
+
+[workspace.dependencies.sc-network]
+path = "../polkadot-sdk/substrate/client/network"
+
+[workspace.dependencies.scale-info]
+version = "2.11.6"
+default-features = false
+
+[workspace.dependencies.separator]
+version = "0.4.1"
+
+[workspace.dependencies.serde]
+version = "1.0.214"
+
+[workspace.dependencies.serde_json]
+version = "1.0.132"
+default-features = false
+
+[workspace.dependencies.smallvec]
+version = "1.13.1"
+
+[workspace.dependencies.snowbridge-beacon-primitives]
+default-features = false
+path = "../polkadot-sdk/bridges/snowbridge/primitives/beacon"
+
+[workspace.dependencies.snowbridge-core]
+default-features = false
+path = "../polkadot-sdk/bridges/snowbridge/primitives/core"
+
+[workspace.dependencies.snowbridge-merkle-tree]
+default-features = false
+path = "../polkadot-sdk/bridges/snowbridge/primitives/merkle-tree"
+
+[workspace.dependencies.snowbridge-outbound-queue-runtime-api]
+default-features = false
+path = "../polkadot-sdk/bridges/snowbridge/pallets/outbound-queue/runtime-api"
+
+[workspace.dependencies.snowbridge-outbound-queue-v2-runtime-api]
+default-features = false
+path = "../polkadot-sdk/bridges/snowbridge/pallets/outbound-queue-v2/runtime-api"
+
+[workspace.dependencies.snowbridge-outbound-queue-primitives]
+default-features = false
+path = "../polkadot-sdk/bridges/snowbridge/primitives/outbound-queue"
+
+[workspace.dependencies.snowbridge-pallet-ethereum-client]
+default-features = false
+path = "../polkadot-sdk/bridges/snowbridge/pallets/ethereum-client"
+
+[workspace.dependencies.snowbridge-pallet-inbound-queue]
+default-features = false
+path = "../polkadot-sdk/bridges/snowbridge/pallets/inbound-queue"
+
+[workspace.dependencies.snowbridge-pallet-inbound-queue-v2]
+default-features = false
+path = "../polkadot-sdk/bridges/snowbridge/pallets/inbound-queue-v2"
+
+[workspace.dependencies.snowbridge-pallet-inbound-queue-fixtures]
+default-features = false
+path = "../polkadot-sdk/bridges/snowbridge/pallets/inbound-queue/fixtures"
+
+[workspace.dependencies.snowbridge-pallet-inbound-queue-v2-fixtures]
+default-features = false
+path = "../polkadot-sdk/bridges/snowbridge/pallets/inbound-queue-v2/fixtures"
+
+[workspace.dependencies.snowbridge-pallet-ethereum-client-fixtures]
+path = "../polkadot-sdk/bridges/snowbridge/pallets/ethereum-client/fixtures"
+
+[workspace.dependencies.snowbridge-pallet-outbound-queue]
+default-features = false
+path = "../polkadot-sdk/bridges/snowbridge/pallets/outbound-queue"
+
+[workspace.dependencies.snowbridge-pallet-outbound-queue-v2]
+default-features = false
+path = "../polkadot-sdk/bridges/snowbridge/pallets/outbound-queue-v2"
+
+[workspace.dependencies.snowbridge-pallet-system]
+default-features = false
+path = "../polkadot-sdk/bridges/snowbridge/pallets/system"
+
+[workspace.dependencies.snowbridge-pallet-system-v2]
+default-features = false
+path = "../polkadot-sdk/bridges/snowbridge/pallets/system-v2"
+
+[workspace.dependencies.snowbridge-pallet-system-frontend]
+default-features = false
+path = "../polkadot-sdk/bridges/snowbridge/pallets/system-frontend"
+
+[workspace.dependencies.snowbridge-inbound-queue-primitives]
+default-features = false
+path = "../polkadot-sdk/bridges/snowbridge/primitives/inbound-queue"
+
+[workspace.dependencies.snowbridge-runtime-common]
+default-features = false
+path = "../polkadot-sdk/bridges/snowbridge/runtime/runtime-common"
+
+[workspace.dependencies.snowbridge-runtime-test-common]
+path = "../polkadot-sdk/bridges/snowbridge/runtime/test-common"
+
+[workspace.dependencies.snowbridge-system-runtime-api]
+default-features = false
+path = "../polkadot-sdk/bridges/snowbridge/pallets/system/runtime-api"
+
+[workspace.dependencies.snowbridge-system-v2-runtime-api]
+default-features = false
+path = "../polkadot-sdk/bridges/snowbridge/pallets/system-v2/runtime-api"
+
+[workspace.dependencies.sp-api]
+default-features = false
+path = "../polkadot-sdk/substrate/primitives/api"
+
+[workspace.dependencies.sp-application-crypto]
+default-features = false
+path = "../polkadot-sdk/substrate/primitives/application-crypto"
+
+[workspace.dependencies.sp-arithmetic]
+default-features = false
+path = "../polkadot-sdk/substrate/primitives/arithmetic"
+
+[workspace.dependencies.sp-block-builder]
+default-features = false
+path = "../polkadot-sdk/substrate/primitives/block-builder"
+
+[workspace.dependencies.sp-consensus-aura]
+default-features = false
+path = "../polkadot-sdk/substrate/primitives/consensus/aura"
+
+[workspace.dependencies.sp-core]
+default-features = false
+path = "../polkadot-sdk/substrate/primitives/core"
+
+[workspace.dependencies.sp-debug-derive]
+default-features = false
+path = "../polkadot-sdk/substrate/primitives/debug-derive"
+
+[workspace.dependencies.sp-genesis-builder]
+default-features = false
+path = "../polkadot-sdk/substrate/primitives/genesis-builder"
+
+[workspace.dependencies.sp-inherents]
+default-features = false
+path = "../polkadot-sdk/substrate/primitives/inherents"
+
+[workspace.dependencies.sp-io]
+default-features = false
+path = "../polkadot-sdk/substrate/primitives/io"
+
+[workspace.dependencies.sp-keyring]
+path = "../polkadot-sdk/substrate/primitives/keyring"
+
+[workspace.dependencies.sp-npos-elections]
+default-features = false
+path = "../polkadot-sdk/substrate/primitives/npos-elections"
+
+[workspace.dependencies.sp-offchain]
+default-features = false
+path = "../polkadot-sdk/substrate/primitives/offchain"
+
+[workspace.dependencies.sp-runtime]
+default-features = false
+path = "../polkadot-sdk/substrate/primitives/runtime"
+
+[workspace.dependencies.sp-session]
+default-features = false
+path = "../polkadot-sdk/substrate/primitives/session"
+
+[workspace.dependencies.sp-staking]
+default-features = false
+path = "../polkadot-sdk/substrate/primitives/staking"
+
+[workspace.dependencies.sp-std]
+default-features = false
+path = "../polkadot-sdk/substrate/primitives/std"
+
+[workspace.dependencies.sp-state-machine]
+default-features = false
+path = "../polkadot-sdk/substrate/primitives/state-machine"
+
+[workspace.dependencies.sp-storage]
+default-features = false
+path = "../polkadot-sdk/substrate/primitives/storage"
+
+[workspace.dependencies.sp-tracing]
+default-features = false
+path = "../polkadot-sdk/substrate/primitives/tracing"
+
+[workspace.dependencies.sp-transaction-pool]
+default-features = false
+path = "../polkadot-sdk/substrate/primitives/transaction-pool"
+
+[workspace.dependencies.sp-trie]
+default-features = false
+path = "../polkadot-sdk/substrate/primitives/trie"
+
+[workspace.dependencies.sp-version]
+default-features = false
+path = "../polkadot-sdk/substrate/primitives/version"
+
+[workspace.dependencies.sp-weights]
+default-features = false
+path = "../polkadot-sdk/substrate/primitives/weights"
+
+[workspace.dependencies.substrate-wasm-builder]
+path = "../polkadot-sdk/substrate/utils/wasm-builder"
+
+[workspace.dependencies.system-parachains-constants]
+path = "system-parachains/constants"
+default-features = false
+
+[workspace.dependencies.system-parachains-common]
+path = "system-parachains/common"
+default-features = false
+
+[workspace.dependencies.tokio]
+version = "1.45.0"
+
+[workspace.dependencies.xcm]
+default-features = false
+package = "staging-xcm"
+path = "../polkadot-sdk/polkadot/xcm"
+
+[workspace.dependencies.xcm-builder]
+default-features = false
+package = "staging-xcm-builder"
+path = "../polkadot-sdk/polkadot/xcm/xcm-builder"
+
+[workspace.dependencies.xcm-emulator]
+path = "../polkadot-sdk/cumulus/xcm/xcm-emulator"
+
+[workspace.dependencies.xcm-executor]
+default-features = false
+package = "staging-xcm-executor"
+path = "../polkadot-sdk/polkadot/xcm/xcm-executor"
+
+[workspace.dependencies.xcm-runtime-apis]
+default-features = false
+path = "../polkadot-sdk/polkadot/xcm/xcm-runtime-apis"
+
+[workspace.dependencies.anyhow]
+version = "1.0.82"
+
+[workspace.dependencies.subxt]
+version = "0.43.0"
+
+[workspace.dependencies.tracing-subscriber]
+version = "0.3.18"
+
+[workspace.dependencies.zombienet-sdk]
+version = "0.4.2"
+
+[workspace.dependencies.tuplex]
+version = "0.1.0"
+default-features = false
+
+[workspace.dependencies.relay-common]
+path = "relay/common"
+default-features = false
+
+[workspace.dependencies.ss58-registry]
+version = "1.47.0"
+
+[patch.crates-io.bridge-runtime-common]
+path = "/Users/kata/code/polkadot-sdk/bridges/bin/runtime-common"
+
+[patch.crates-io.bp-header-chain]
+path = "/Users/kata/code/polkadot-sdk/bridges/primitives/header-chain"
+
+[patch.crates-io.bp-runtime]
+path = "/Users/kata/code/polkadot-sdk/bridges/primitives/runtime"
+
+[patch.crates-io.frame-support]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/support"
+
+[patch.crates-io.binary-merkle-tree]
+path = "/Users/kata/code/polkadot-sdk/substrate/utils/binary-merkle-tree"
+
+[patch.crates-io.sp-core]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/core"
+
+[patch.crates-io.sp-crypto-hashing]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/crypto/hashing"
+
+[patch.crates-io.sp-crypto-hashing-proc-macro]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/crypto/hashing/proc-macro"
+
+[patch.crates-io.sp-debug-derive]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/debug-derive"
+
+[patch.crates-io.sp-externalities]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/externalities"
+
+[patch.crates-io.sp-storage]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/storage"
+
+[patch.crates-io.sp-std]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/std"
+
+[patch.crates-io.substrate-bip39]
+path = "/Users/kata/code/polkadot-sdk/substrate/utils/substrate-bip39"
+
+[patch.crates-io.sp-runtime]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/runtime"
+
+[patch.crates-io.sp-application-crypto]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/application-crypto"
+
+[patch.crates-io.sp-io]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/io"
+
+[patch.crates-io.sp-keystore]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/keystore"
+
+[patch.crates-io.sp-runtime-interface]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/runtime-interface"
+
+[patch.crates-io.sp-runtime-interface-proc-macro]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/runtime-interface/proc-macro"
+
+[patch.crates-io.sp-tracing]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/tracing"
+
+[patch.crates-io.sp-wasm-interface]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/wasm-interface"
+
+[patch.crates-io.sp-runtime-interface-test-wasm]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/runtime-interface/test-wasm"
+
+[patch.crates-io.substrate-wasm-builder]
+path = "/Users/kata/code/polkadot-sdk/substrate/utils/wasm-builder"
+
+[patch.crates-io.sc-executor]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/executor"
+
+[patch.crates-io.sc-executor-common]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/executor/common"
+
+[patch.crates-io.sc-allocator]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/allocator"
+
+[patch.crates-io.sp-maybe-compressed-blob]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/maybe-compressed-blob"
+
+[patch.crates-io.sc-executor-polkavm]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/executor/polkavm"
+
+[patch.crates-io.sc-executor-wasmtime]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/executor/wasmtime"
+
+[patch.crates-io.sc-runtime-test]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/executor/runtime-test"
+
+[patch.crates-io.sp-api]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/api"
+
+[patch.crates-io.sp-api-proc-macro]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/api/proc-macro"
+
+[patch.crates-io.sp-metadata-ir]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/metadata-ir"
+
+[patch.crates-io.sp-state-machine]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/state-machine"
+
+[patch.crates-io.sp-panic-handler]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/panic-handler"
+
+[patch.crates-io.sp-trie]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/trie"
+
+[patch.crates-io.substrate-prometheus-endpoint]
+path = "/Users/kata/code/polkadot-sdk/substrate/utils/prometheus"
+
+[patch.crates-io.sp-version]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/version"
+
+[patch.crates-io.sp-version-proc-macro]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/version/proc-macro"
+
+[patch.crates-io.sp-test-primitives]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/test-primitives"
+
+[patch.crates-io.sc-tracing]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/tracing"
+
+[patch.crates-io.sc-client-api]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/api"
+
+[patch.crates-io.sc-transaction-pool-api]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/transaction-pool/api"
+
+[patch.crates-io.sp-blockchain]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/blockchain"
+
+[patch.crates-io.sp-consensus]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/consensus/common"
+
+[patch.crates-io.sp-inherents]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/inherents"
+
+[patch.crates-io.sp-database]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/database"
+
+[patch.crates-io.sc-utils]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/utils"
+
+[patch.crates-io.sp-arithmetic]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/arithmetic"
+
+[patch.crates-io.substrate-test-runtime]
+path = "/Users/kata/code/polkadot-sdk/substrate/test-utils/runtime"
+
+[patch.crates-io.frame-executive]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/executive"
+
+[patch.crates-io.frame-system]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/system"
+
+[patch.crates-io.sp-weights]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/weights"
+
+[patch.crates-io.substrate-test-runtime-client]
+path = "/Users/kata/code/polkadot-sdk/substrate/test-utils/runtime/client"
+
+[patch.crates-io.sc-block-builder]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/block-builder"
+
+[patch.crates-io.sp-block-builder]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/block-builder"
+
+[patch.crates-io.sc-consensus]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/consensus/common"
+
+[patch.crates-io.sc-network-types]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/network/types"
+
+[patch.crates-io.substrate-test-client]
+path = "/Users/kata/code/polkadot-sdk/substrate/test-utils/client"
+
+[patch.crates-io.sc-client-db]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/db"
+
+[patch.crates-io.sc-state-db]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/state-db"
+
+[patch.crates-io.kitchensink-runtime]
+path = "/Users/kata/code/polkadot-sdk/substrate/bin/node/runtime"
+
+[patch.crates-io.node-primitives]
+path = "/Users/kata/code/polkadot-sdk/substrate/bin/node/primitives"
+
+[patch.crates-io.pallet-example-mbm]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/examples/multi-block-migrations"
+
+[patch.crates-io.frame-benchmarking]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/benchmarking"
+
+[patch.crates-io.frame-support-procedural]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/support/procedural"
+
+[patch.crates-io.frame-support-procedural-tools]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/support/procedural/tools"
+
+[patch.crates-io.frame-support-procedural-tools-derive]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/support/procedural/tools/derive"
+
+[patch.crates-io.pallet-migrations]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/migrations"
+
+[patch.crates-io.polkadot-sdk-frame]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame"
+
+[patch.crates-io.frame-system-benchmarking]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/system/benchmarking"
+
+[patch.crates-io.frame-system-rpc-runtime-api]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/system/rpc/runtime-api"
+
+[patch.crates-io.frame-try-runtime]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/try-runtime"
+
+[patch.crates-io.sp-consensus-aura]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/consensus/aura"
+
+[patch.crates-io.sp-consensus-slots]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/consensus/slots"
+
+[patch.crates-io.sp-timestamp]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/timestamp"
+
+[patch.crates-io.sp-consensus-grandpa]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/consensus/grandpa"
+
+[patch.crates-io.sp-genesis-builder]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/genesis-builder"
+
+[patch.crates-io.sp-keyring]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/keyring"
+
+[patch.crates-io.sp-offchain]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/offchain"
+
+[patch.crates-io.sp-session]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/session"
+
+[patch.crates-io.sp-staking]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/staking"
+
+[patch.crates-io.sp-transaction-pool]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/transaction-pool"
+
+[patch.crates-io.pallet-example-tasks]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/examples/tasks"
+
+[patch.crates-io.polkadot-sdk]
+path = "/Users/kata/code/polkadot-sdk/umbrella"
+
+[patch.crates-io.asset-test-utils]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/runtimes/assets/test-utils"
+
+[patch.crates-io.assets-common]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/runtimes/assets/common"
+
+[patch.crates-io.cumulus-primitives-core]
+path = "/Users/kata/code/polkadot-sdk/cumulus/primitives/core"
+
+[patch.crates-io.polkadot-core-primitives]
+path = "/Users/kata/code/polkadot-sdk/polkadot/core-primitives"
+
+[patch.crates-io.polkadot-parachain-primitives]
+path = "/Users/kata/code/polkadot-sdk/polkadot/parachain"
+
+[patch.crates-io.polkadot-primitives]
+path = "/Users/kata/code/polkadot-sdk/polkadot/primitives"
+
+[patch.crates-io.sp-authority-discovery]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/authority-discovery"
+
+[patch.crates-io.staging-xcm]
+path = "/Users/kata/code/polkadot-sdk/polkadot/xcm"
+
+[patch.crates-io.xcm-procedural]
+path = "/Users/kata/code/polkadot-sdk/polkadot/xcm/procedural"
+
+[patch.crates-io.ethereum-standards]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/ethereum-standards"
+
+[patch.crates-io.pallet-asset-conversion]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/asset-conversion"
+
+[patch.crates-io.pallet-assets]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/assets"
+
+[patch.crates-io.pallet-balances]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/balances"
+
+[patch.crates-io.pallet-transaction-payment]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/transaction-payment"
+
+[patch.crates-io.pallet-revive]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/revive"
+
+[patch.crates-io.pallet-revive-fixtures]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/revive/fixtures"
+
+[patch.crates-io.pallet-revive-uapi]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/revive/uapi"
+
+[patch.crates-io.pallet-revive-proc-macro]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/revive/proc-macro"
+
+[patch.crates-io.sp-consensus-babe]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/consensus/babe"
+
+[patch.crates-io.pallet-proxy]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/proxy"
+
+[patch.crates-io.pallet-utility]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/utility"
+
+[patch.crates-io.pallet-collective]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/collective"
+
+[patch.crates-io.pallet-root-testing]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/root-testing"
+
+[patch.crates-io.pallet-timestamp]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/timestamp"
+
+[patch.crates-io.pallet-xcm]
+path = "/Users/kata/code/polkadot-sdk/polkadot/xcm/pallet-xcm"
+
+[patch.crates-io.staging-xcm-builder]
+path = "/Users/kata/code/polkadot-sdk/polkadot/xcm/xcm-builder"
+
+[patch.crates-io.staging-xcm-executor]
+path = "/Users/kata/code/polkadot-sdk/polkadot/xcm/xcm-executor"
+
+[patch.crates-io.pallet-salary]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/salary"
+
+[patch.crates-io.pallet-ranked-collective]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/ranked-collective"
+
+[patch.crates-io.polkadot-runtime-parachains]
+path = "/Users/kata/code/polkadot-sdk/polkadot/runtime/parachains"
+
+[patch.crates-io.frame-election-provider-support]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/election-provider-support"
+
+[patch.crates-io.frame-election-provider-solution-type]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/election-provider-support/solution-type"
+
+[patch.crates-io.sp-npos-elections]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/npos-elections"
+
+[patch.crates-io.substrate-test-utils]
+path = "/Users/kata/code/polkadot-sdk/substrate/test-utils"
+
+[patch.crates-io.pallet-authority-discovery]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/authority-discovery"
+
+[patch.crates-io.pallet-session]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/session"
+
+[patch.crates-io.pallet-authorship]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/authorship"
+
+[patch.crates-io.pallet-babe]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/babe"
+
+[patch.crates-io.pallet-offences]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/offences"
+
+[patch.crates-io.pallet-staking]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/staking"
+
+[patch.crates-io.pallet-bags-list]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/bags-list"
+
+[patch.crates-io.pallet-staking-reward-curve]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/staking/reward-curve"
+
+[patch.crates-io.pallet-broker]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/broker"
+
+[patch.crates-io.pallet-message-queue]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/message-queue"
+
+[patch.crates-io.pallet-mmr]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/merkle-mountain-range"
+
+[patch.crates-io.sp-mmr-primitives]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/merkle-mountain-range"
+
+[patch.crates-io.polkadot-runtime-metrics]
+path = "/Users/kata/code/polkadot-sdk/polkadot/runtime/metrics"
+
+[patch.crates-io.frame-support-test]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/support/test"
+
+[patch.crates-io.frame-support-test-pallet]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/support/test/pallet"
+
+[patch.crates-io.polkadot-primitives-test-helpers]
+path = "/Users/kata/code/polkadot-sdk/polkadot/primitives/test-helpers"
+
+[patch.crates-io.sc-keystore]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/keystore"
+
+[patch.crates-io.polkadot-test-runtime]
+path = "/Users/kata/code/polkadot-sdk/polkadot/runtime/test-runtime"
+
+[patch.crates-io.pallet-grandpa]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/grandpa"
+
+[patch.crates-io.pallet-indices]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/indices"
+
+[patch.crates-io.pallet-sudo]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/sudo"
+
+[patch.crates-io.pallet-transaction-payment-rpc-runtime-api]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/transaction-payment/rpc/runtime-api"
+
+[patch.crates-io.pallet-vesting]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/vesting"
+
+[patch.crates-io.polkadot-runtime-common]
+path = "/Users/kata/code/polkadot-sdk/polkadot/runtime/common"
+
+[patch.crates-io.pallet-asset-rate]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/asset-rate"
+
+[patch.crates-io.pallet-election-provider-multi-phase]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/election-provider-multi-phase"
+
+[patch.crates-io.frame-remote-externalities]
+path = "/Users/kata/code/polkadot-sdk/substrate/utils/frame/remote-externalities"
+
+[patch.crates-io.substrate-rpc-client]
+path = "/Users/kata/code/polkadot-sdk/substrate/utils/frame/rpc/client"
+
+[patch.crates-io.sc-rpc-api]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/rpc-api"
+
+[patch.crates-io.sc-chain-spec]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/chain-spec"
+
+[patch.crates-io.sc-chain-spec-derive]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/chain-spec/derive"
+
+[patch.crates-io.sc-network]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/network"
+
+[patch.crates-io.sc-network-common]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/network/common"
+
+[patch.crates-io.sc-telemetry]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/telemetry"
+
+[patch.crates-io.sc-mixnet]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/mixnet"
+
+[patch.crates-io.sp-mixnet]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/mixnet"
+
+[patch.crates-io.sp-rpc]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/rpc"
+
+[patch.crates-io.pallet-fast-unstake]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/fast-unstake"
+
+[patch.crates-io.pallet-identity]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/identity"
+
+[patch.crates-io.pallet-staking-reward-fn]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/staking/reward-fn"
+
+[patch.crates-io.pallet-treasury]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/treasury"
+
+[patch.crates-io.slot-range-helper]
+path = "/Users/kata/code/polkadot-sdk/polkadot/runtime/common/slot_range_helper"
+
+[patch.crates-io.sp-consensus-beefy]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/consensus/beefy"
+
+[patch.crates-io.test-runtime-constants]
+path = "/Users/kata/code/polkadot-sdk/polkadot/runtime/test-runtime/constants"
+
+[patch.crates-io.xcm-simulator]
+path = "/Users/kata/code/polkadot-sdk/polkadot/xcm/xcm-simulator"
+
+[patch.crates-io.xcm-runtime-apis]
+path = "/Users/kata/code/polkadot-sdk/polkadot/xcm/xcm-runtime-apis"
+
+[patch.crates-io.parachains-common]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/common"
+
+[patch.crates-io.cumulus-primitives-utility]
+path = "/Users/kata/code/polkadot-sdk/cumulus/primitives/utility"
+
+[patch.crates-io.pallet-asset-tx-payment]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/transaction-payment/asset-tx-payment"
+
+[patch.crates-io.pallet-collator-selection]
+path = "/Users/kata/code/polkadot-sdk/cumulus/pallets/collator-selection"
+
+[patch.crates-io.pallet-aura]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/aura"
+
+[patch.crates-io.pallet-multi-asset-bounties]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/multi-asset-bounties"
+
+[patch.crates-io.pallet-preimage]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/preimage"
+
+[patch.crates-io.staging-parachain-info]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/pallets/parachain-info"
+
+[patch.crates-io.cumulus-pallet-parachain-system]
+path = "/Users/kata/code/polkadot-sdk/cumulus/pallets/parachain-system"
+
+[patch.crates-io.cumulus-pallet-parachain-system-proc-macro]
+path = "/Users/kata/code/polkadot-sdk/cumulus/pallets/parachain-system/proc-macro"
+
+[patch.crates-io.cumulus-primitives-parachain-inherent]
+path = "/Users/kata/code/polkadot-sdk/cumulus/primitives/parachain-inherent"
+
+[patch.crates-io.cumulus-primitives-proof-size-hostfunction]
+path = "/Users/kata/code/polkadot-sdk/cumulus/primitives/proof-size-hostfunction"
+
+[patch.crates-io.cumulus-test-client]
+path = "/Users/kata/code/polkadot-sdk/cumulus/test/client"
+
+[patch.crates-io.cumulus-pallet-weight-reclaim]
+path = "/Users/kata/code/polkadot-sdk/cumulus/pallets/weight-reclaim"
+
+[patch.crates-io.cumulus-primitives-storage-weight-reclaim]
+path = "/Users/kata/code/polkadot-sdk/cumulus/primitives/storage-weight-reclaim"
+
+[patch.crates-io.cumulus-test-runtime]
+path = "/Users/kata/code/polkadot-sdk/cumulus/test/runtime"
+
+[patch.crates-io.cumulus-pallet-aura-ext]
+path = "/Users/kata/code/polkadot-sdk/cumulus/pallets/aura-ext"
+
+[patch.crates-io.cumulus-test-relay-sproof-builder]
+path = "/Users/kata/code/polkadot-sdk/cumulus/test/relay-sproof-builder"
+
+[patch.crates-io.cumulus-primitives-aura]
+path = "/Users/kata/code/polkadot-sdk/cumulus/primitives/aura"
+
+[patch.crates-io.pallet-glutton]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/glutton"
+
+[patch.crates-io.cumulus-test-service]
+path = "/Users/kata/code/polkadot-sdk/cumulus/test/service"
+
+[patch.crates-io.cumulus-client-cli]
+path = "/Users/kata/code/polkadot-sdk/cumulus/client/cli"
+
+[patch.crates-io.sc-cli]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/cli"
+
+[patch.crates-io.sc-service]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/service"
+
+[patch.crates-io.sc-informant]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/informant"
+
+[patch.crates-io.sc-network-sync]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/network/sync"
+
+[patch.crates-io.fork-tree]
+path = "/Users/kata/code/polkadot-sdk/substrate/utils/fork-tree"
+
+[patch.crates-io.sc-network-light]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/network/light"
+
+[patch.crates-io.sc-network-transactions]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/network/transactions"
+
+[patch.crates-io.sc-rpc]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/rpc"
+
+[patch.crates-io.sp-statement-store]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/statement-store"
+
+[patch.crates-io.sc-transaction-pool]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/transaction-pool"
+
+[patch.crates-io.cumulus-zombienet-sdk-helpers]
+path = "/Users/kata/code/polkadot-sdk/cumulus/zombienet/zombienet-sdk-helpers"
+
+[patch.crates-io.substrate-test-runtime-transaction-pool]
+path = "/Users/kata/code/polkadot-sdk/substrate/test-utils/runtime/transaction-pool"
+
+[patch.crates-io.sc-rpc-server]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/rpc-servers"
+
+[patch.crates-io.sc-rpc-spec-v2]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/rpc-spec-v2"
+
+[patch.crates-io.sc-sysinfo]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/sysinfo"
+
+[patch.crates-io.sp-transaction-storage-proof]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/transaction-storage-proof"
+
+[patch.crates-io.cumulus-client-collator]
+path = "/Users/kata/code/polkadot-sdk/cumulus/client/collator"
+
+[patch.crates-io.cumulus-client-consensus-common]
+path = "/Users/kata/code/polkadot-sdk/cumulus/client/consensus/common"
+
+[patch.crates-io.cumulus-client-pov-recovery]
+path = "/Users/kata/code/polkadot-sdk/cumulus/client/pov-recovery"
+
+[patch.crates-io.cumulus-relay-chain-interface]
+path = "/Users/kata/code/polkadot-sdk/cumulus/client/relay-chain-interface"
+
+[patch.crates-io.polkadot-overseer]
+path = "/Users/kata/code/polkadot-sdk/polkadot/node/overseer"
+
+[patch.crates-io.tracing-gum]
+path = "/Users/kata/code/polkadot-sdk/polkadot/node/gum"
+
+[patch.crates-io.tracing-gum-proc-macro]
+path = "/Users/kata/code/polkadot-sdk/polkadot/node/gum/proc-macro"
+
+[patch.crates-io.polkadot-node-metrics]
+path = "/Users/kata/code/polkadot-sdk/polkadot/node/metrics"
+
+[patch.crates-io.polkadot-test-service]
+path = "/Users/kata/code/polkadot-sdk/polkadot/node/test/service"
+
+[patch.crates-io.polkadot-node-primitives]
+path = "/Users/kata/code/polkadot-sdk/polkadot/node/primitives"
+
+[patch.crates-io.polkadot-node-subsystem]
+path = "/Users/kata/code/polkadot-sdk/polkadot/node/subsystem"
+
+[patch.crates-io.polkadot-node-subsystem-types]
+path = "/Users/kata/code/polkadot-sdk/polkadot/node/subsystem-types"
+
+[patch.crates-io.polkadot-node-network-protocol]
+path = "/Users/kata/code/polkadot-sdk/polkadot/node/network/protocol"
+
+[patch.crates-io.sc-authority-discovery]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/authority-discovery"
+
+[patch.crates-io.polkadot-statement-table]
+path = "/Users/kata/code/polkadot-sdk/polkadot/statement-table"
+
+[patch.crates-io.polkadot-service]
+path = "/Users/kata/code/polkadot-sdk/polkadot/node/service"
+
+[patch.crates-io.frame-benchmarking-cli]
+path = "/Users/kata/code/polkadot-sdk/substrate/utils/frame/benchmarking-cli"
+
+[patch.crates-io.cumulus-client-parachain-inherent]
+path = "/Users/kata/code/polkadot-sdk/cumulus/client/parachain-inherent"
+
+[patch.crates-io.sc-consensus-babe]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/consensus/babe"
+
+[patch.crates-io.sc-consensus-epochs]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/consensus/epochs"
+
+[patch.crates-io.sc-consensus-slots]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/consensus/slots"
+
+[patch.crates-io.sc-network-test]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/network/test"
+
+[patch.crates-io.frame-storage-access-test-runtime]
+path = "/Users/kata/code/polkadot-sdk/substrate/utils/frame/storage-access-test-runtime"
+
+[patch.crates-io.sc-runtime-utilities]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/runtime-utilities"
+
+[patch.crates-io.westend-runtime]
+path = "/Users/kata/code/polkadot-sdk/polkadot/runtime/westend"
+
+[patch.crates-io.frame-metadata-hash-extension]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/metadata-hash-extension"
+
+[patch.crates-io.pallet-beefy]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/beefy"
+
+[patch.crates-io.pallet-beefy-mmr]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/beefy-mmr"
+
+[patch.crates-io.pallet-conviction-voting]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/conviction-voting"
+
+[patch.crates-io.pallet-delegated-staking]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/delegated-staking"
+
+[patch.crates-io.pallet-nomination-pools]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/nomination-pools"
+
+[patch.crates-io.pallet-election-provider-support-benchmarking]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/election-provider-support/benchmarking"
+
+[patch.crates-io.pallet-meta-tx]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/meta-tx"
+
+[patch.crates-io.pallet-verify-signature]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/verify-signature"
+
+[patch.crates-io.pallet-multisig]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/multisig"
+
+[patch.crates-io.pallet-nomination-pools-benchmarking]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/nomination-pools/benchmarking"
+
+[patch.crates-io.pallet-nomination-pools-runtime-api]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/nomination-pools/runtime-api"
+
+[patch.crates-io.pallet-offences-benchmarking]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/offences/benchmarking"
+
+[patch.crates-io.pallet-im-online]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/im-online"
+
+[patch.crates-io.pallet-parameters]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/parameters"
+
+[patch.crates-io.pallet-example-basic]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/examples/basic"
+
+[patch.crates-io.pallet-recovery]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/recovery"
+
+[patch.crates-io.pallet-referenda]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/referenda"
+
+[patch.crates-io.pallet-scheduler]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/scheduler"
+
+[patch.crates-io.pallet-root-offences]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/root-offences"
+
+[patch.crates-io.pallet-session-benchmarking]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/session/benchmarking"
+
+[patch.crates-io.pallet-staking-async-ah-client]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/staking-async/ah-client"
+
+[patch.crates-io.pallet-staking-async-rc-client]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/staking-async/rc-client"
+
+[patch.crates-io.pallet-staking-runtime-api]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/staking/runtime-api"
+
+[patch.crates-io.pallet-whitelist]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/whitelist"
+
+[patch.crates-io.pallet-xcm-benchmarks]
+path = "/Users/kata/code/polkadot-sdk/polkadot/xcm/pallet-xcm-benchmarks"
+
+[patch.crates-io.westend-runtime-constants]
+path = "/Users/kata/code/polkadot-sdk/polkadot/runtime/westend/constants"
+
+[patch.crates-io.mmr-gadget]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/merkle-mountain-range"
+
+[patch.crates-io.sc-offchain]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/offchain"
+
+[patch.crates-io.polkadot-approval-distribution]
+path = "/Users/kata/code/polkadot-sdk/polkadot/node/network/approval-distribution"
+
+[patch.crates-io.polkadot-node-subsystem-util]
+path = "/Users/kata/code/polkadot-sdk/polkadot/node/subsystem-util"
+
+[patch.crates-io.polkadot-erasure-coding]
+path = "/Users/kata/code/polkadot-sdk/polkadot/erasure-coding"
+
+[patch.crates-io.polkadot-node-subsystem-test-helpers]
+path = "/Users/kata/code/polkadot-sdk/polkadot/node/subsystem-test-helpers"
+
+[patch.crates-io.polkadot-availability-bitfield-distribution]
+path = "/Users/kata/code/polkadot-sdk/polkadot/node/network/bitfield-distribution"
+
+[patch.crates-io.polkadot-availability-distribution]
+path = "/Users/kata/code/polkadot-sdk/polkadot/node/network/availability-distribution"
+
+[patch.crates-io.polkadot-subsystem-bench]
+path = "/Users/kata/code/polkadot-sdk/polkadot/node/subsystem-bench"
+
+[patch.crates-io.polkadot-availability-recovery]
+path = "/Users/kata/code/polkadot-sdk/polkadot/node/network/availability-recovery"
+
+[patch.crates-io.polkadot-dispute-distribution]
+path = "/Users/kata/code/polkadot-sdk/polkadot/node/network/dispute-distribution"
+
+[patch.crates-io.polkadot-node-core-approval-voting]
+path = "/Users/kata/code/polkadot-sdk/polkadot/node/core/approval-voting"
+
+[patch.crates-io.polkadot-node-core-approval-voting-parallel]
+path = "/Users/kata/code/polkadot-sdk/polkadot/node/core/approval-voting-parallel"
+
+[patch.crates-io.polkadot-node-core-av-store]
+path = "/Users/kata/code/polkadot-sdk/polkadot/node/core/av-store"
+
+[patch.crates-io.polkadot-node-core-dispute-coordinator]
+path = "/Users/kata/code/polkadot-sdk/polkadot/node/core/dispute-coordinator"
+
+[patch.crates-io.polkadot-statement-distribution]
+path = "/Users/kata/code/polkadot-sdk/polkadot/node/network/statement-distribution"
+
+[patch.crates-io.polkadot-collator-protocol]
+path = "/Users/kata/code/polkadot-sdk/polkadot/node/network/collator-protocol"
+
+[patch.crates-io.polkadot-gossip-support]
+path = "/Users/kata/code/polkadot-sdk/polkadot/node/network/gossip-support"
+
+[patch.crates-io.polkadot-network-bridge]
+path = "/Users/kata/code/polkadot-sdk/polkadot/node/network/bridge"
+
+[patch.crates-io.polkadot-node-collation-generation]
+path = "/Users/kata/code/polkadot-sdk/polkadot/node/collation-generation"
+
+[patch.crates-io.polkadot-node-core-backing]
+path = "/Users/kata/code/polkadot-sdk/polkadot/node/core/backing"
+
+[patch.crates-io.polkadot-node-core-bitfield-signing]
+path = "/Users/kata/code/polkadot-sdk/polkadot/node/core/bitfield-signing"
+
+[patch.crates-io.polkadot-node-core-candidate-validation]
+path = "/Users/kata/code/polkadot-sdk/polkadot/node/core/candidate-validation"
+
+[patch.crates-io.polkadot-node-core-pvf]
+path = "/Users/kata/code/polkadot-sdk/polkadot/node/core/pvf"
+
+[patch.crates-io.polkadot-node-core-pvf-common]
+path = "/Users/kata/code/polkadot-sdk/polkadot/node/core/pvf/common"
+
+[patch.crates-io.polkadot-node-core-pvf-execute-worker]
+path = "/Users/kata/code/polkadot-sdk/polkadot/node/core/pvf/execute-worker"
+
+[patch.crates-io.polkadot-node-core-pvf-prepare-worker]
+path = "/Users/kata/code/polkadot-sdk/polkadot/node/core/pvf/prepare-worker"
+
+[patch.crates-io.staging-tracking-allocator]
+path = "/Users/kata/code/polkadot-sdk/polkadot/node/tracking-allocator"
+
+[patch.crates-io.rococo-runtime]
+path = "/Users/kata/code/polkadot-sdk/polkadot/runtime/rococo"
+
+[patch.crates-io.pallet-bounties]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/bounties"
+
+[patch.crates-io.pallet-child-bounties]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/child-bounties"
+
+[patch.crates-io.pallet-democracy]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/democracy"
+
+[patch.crates-io.pallet-elections-phragmen]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/elections-phragmen"
+
+[patch.crates-io.pallet-nis]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/nis"
+
+[patch.crates-io.pallet-society]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/society"
+
+[patch.crates-io.pallet-state-trie-migration]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/state-trie-migration"
+
+[patch.crates-io.substrate-state-trie-migration-rpc]
+path = "/Users/kata/code/polkadot-sdk/substrate/utils/frame/rpc/state-trie-migration-rpc"
+
+[patch.crates-io.pallet-tips]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/tips"
+
+[patch.crates-io.rococo-runtime-constants]
+path = "/Users/kata/code/polkadot-sdk/polkadot/runtime/rococo/constants"
+
+[patch.crates-io.test-parachain-adder]
+path = "/Users/kata/code/polkadot-sdk/polkadot/parachain/test-parachains/adder"
+
+[patch.crates-io.test-parachain-halt]
+path = "/Users/kata/code/polkadot-sdk/polkadot/parachain/test-parachains/halt"
+
+[patch.crates-io.polkadot-node-core-chain-api]
+path = "/Users/kata/code/polkadot-sdk/polkadot/node/core/chain-api"
+
+[patch.crates-io.polkadot-node-core-chain-selection]
+path = "/Users/kata/code/polkadot-sdk/polkadot/node/core/chain-selection"
+
+[patch.crates-io.polkadot-node-core-parachains-inherent]
+path = "/Users/kata/code/polkadot-sdk/polkadot/node/core/parachains-inherent"
+
+[patch.crates-io.polkadot-node-core-prospective-parachains]
+path = "/Users/kata/code/polkadot-sdk/polkadot/node/core/prospective-parachains"
+
+[patch.crates-io.polkadot-node-core-provisioner]
+path = "/Users/kata/code/polkadot-sdk/polkadot/node/core/provisioner"
+
+[patch.crates-io.polkadot-node-core-pvf-checker]
+path = "/Users/kata/code/polkadot-sdk/polkadot/node/core/pvf-checker"
+
+[patch.crates-io.polkadot-node-core-runtime-api]
+path = "/Users/kata/code/polkadot-sdk/polkadot/node/core/runtime-api"
+
+[patch.crates-io.polkadot-rpc]
+path = "/Users/kata/code/polkadot-sdk/polkadot/rpc"
+
+[patch.crates-io.mmr-rpc]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/merkle-mountain-range/rpc"
+
+[patch.crates-io.pallet-transaction-payment-rpc]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/transaction-payment/rpc"
+
+[patch.crates-io.sc-consensus-babe-rpc]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/consensus/babe/rpc"
+
+[patch.crates-io.sc-consensus-beefy]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/consensus/beefy"
+
+[patch.crates-io.sc-network-gossip]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/network-gossip"
+
+[patch.crates-io.sc-consensus-beefy-rpc]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/consensus/beefy/rpc"
+
+[patch.crates-io.sc-consensus-grandpa]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/consensus/grandpa"
+
+[patch.crates-io.sc-consensus-grandpa-rpc]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/consensus/grandpa/rpc"
+
+[patch.crates-io.sc-sync-state-rpc]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/sync-state-rpc"
+
+[patch.crates-io.substrate-frame-rpc-system]
+path = "/Users/kata/code/polkadot-sdk/substrate/utils/frame/rpc/system"
+
+[patch.crates-io.sc-basic-authorship]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/basic-authorship"
+
+[patch.crates-io.sc-proposer-metrics]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/proposer-metrics"
+
+[patch.crates-io.polkadot-test-client]
+path = "/Users/kata/code/polkadot-sdk/polkadot/node/test/client"
+
+[patch.crates-io.cumulus-relay-chain-streams]
+path = "/Users/kata/code/polkadot-sdk/cumulus/client/relay-chain-streams"
+
+[patch.crates-io.cumulus-client-network]
+path = "/Users/kata/code/polkadot-sdk/cumulus/client/network"
+
+[patch.crates-io.cumulus-relay-chain-inprocess-interface]
+path = "/Users/kata/code/polkadot-sdk/cumulus/client/relay-chain-inprocess-interface"
+
+[patch.crates-io.cumulus-client-bootnodes]
+path = "/Users/kata/code/polkadot-sdk/cumulus/client/bootnodes"
+
+[patch.crates-io.polkadot-cli]
+path = "/Users/kata/code/polkadot-sdk/polkadot/cli"
+
+[patch.crates-io.sc-storage-monitor]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/storage-monitor"
+
+[patch.crates-io.substrate-build-script-utils]
+path = "/Users/kata/code/polkadot-sdk/substrate/utils/build-script-utils"
+
+[patch.crates-io.cumulus-client-consensus-aura]
+path = "/Users/kata/code/polkadot-sdk/cumulus/client/consensus/aura"
+
+[patch.crates-io.cumulus-client-consensus-proposer]
+path = "/Users/kata/code/polkadot-sdk/cumulus/client/consensus/proposer"
+
+[patch.crates-io.sc-consensus-aura]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/consensus/aura"
+
+[patch.crates-io.cumulus-client-service]
+path = "/Users/kata/code/polkadot-sdk/cumulus/client/service"
+
+[patch.crates-io.cumulus-relay-chain-minimal-node]
+path = "/Users/kata/code/polkadot-sdk/cumulus/client/relay-chain-minimal-node"
+
+[patch.crates-io.cumulus-relay-chain-rpc-interface]
+path = "/Users/kata/code/polkadot-sdk/cumulus/client/relay-chain-rpc-interface"
+
+[patch.crates-io.cumulus-pallet-xcmp-queue]
+path = "/Users/kata/code/polkadot-sdk/cumulus/pallets/xcmp-queue"
+
+[patch.crates-io.bp-xcm-bridge-hub-router]
+path = "/Users/kata/code/polkadot-sdk/bridges/primitives/xcm-bridge-hub-router"
+
+[patch.crates-io.pallet-xcm-bridge-hub-router]
+path = "/Users/kata/code/polkadot-sdk/bridges/modules/xcm-bridge-hub-router"
+
+[patch.crates-io.parachains-runtimes-test-utils]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/runtimes/test-utils"
+
+[patch.crates-io.bp-messages]
+path = "/Users/kata/code/polkadot-sdk/bridges/primitives/messages"
+
+[patch.crates-io.bp-parachains]
+path = "/Users/kata/code/polkadot-sdk/bridges/primitives/parachains"
+
+[patch.crates-io.bp-polkadot-core]
+path = "/Users/kata/code/polkadot-sdk/bridges/primitives/polkadot-core"
+
+[patch.crates-io.bp-relayers]
+path = "/Users/kata/code/polkadot-sdk/bridges/primitives/relayers"
+
+[patch.crates-io.bp-test-utils]
+path = "/Users/kata/code/polkadot-sdk/bridges/primitives/test-utils"
+
+[patch.crates-io.bp-xcm-bridge-hub]
+path = "/Users/kata/code/polkadot-sdk/bridges/primitives/xcm-bridge-hub"
+
+[patch.crates-io.bridge-hub-common]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/runtimes/bridge-hubs/common"
+
+[patch.crates-io.snowbridge-core]
+path = "/Users/kata/code/polkadot-sdk/bridges/snowbridge/primitives/core"
+
+[patch.crates-io.bridge-hub-test-utils]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/runtimes/bridge-hubs/test-utils"
+
+[patch.crates-io.pallet-bridge-grandpa]
+path = "/Users/kata/code/polkadot-sdk/bridges/modules/grandpa"
+
+[patch.crates-io.pallet-bridge-messages]
+path = "/Users/kata/code/polkadot-sdk/bridges/modules/messages"
+
+[patch.crates-io.pallet-bridge-parachains]
+path = "/Users/kata/code/polkadot-sdk/bridges/modules/parachains"
+
+[patch.crates-io.pallet-bridge-relayers]
+path = "/Users/kata/code/polkadot-sdk/bridges/modules/relayers"
+
+[patch.crates-io.pallet-xcm-bridge-hub]
+path = "/Users/kata/code/polkadot-sdk/bridges/modules/xcm-bridge-hub"
+
+[patch.crates-io.cumulus-client-consensus-relay-chain]
+path = "/Users/kata/code/polkadot-sdk/cumulus/client/consensus/relay-chain"
+
+[patch.crates-io.cumulus-pallet-dmp-queue]
+path = "/Users/kata/code/polkadot-sdk/cumulus/pallets/dmp-queue"
+
+[patch.crates-io.cumulus-pallet-session-benchmarking]
+path = "/Users/kata/code/polkadot-sdk/cumulus/pallets/session-benchmarking"
+
+[patch.crates-io.cumulus-pallet-solo-to-para]
+path = "/Users/kata/code/polkadot-sdk/cumulus/pallets/solo-to-para"
+
+[patch.crates-io.cumulus-pallet-xcm]
+path = "/Users/kata/code/polkadot-sdk/cumulus/pallets/xcm"
+
+[patch.crates-io.cumulus-ping]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/pallets/ping"
+
+[patch.crates-io.cumulus-primitives-timestamp]
+path = "/Users/kata/code/polkadot-sdk/cumulus/primitives/timestamp"
+
+[patch.crates-io.emulated-integration-tests-common]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/integration-tests/emulated/common"
+
+[patch.crates-io.xcm-emulator]
+path = "/Users/kata/code/polkadot-sdk/cumulus/xcm/xcm-emulator"
+
+[patch.crates-io.frame-benchmarking-pallet-pov]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/benchmarking/pov"
+
+[patch.crates-io.generate-bags]
+path = "/Users/kata/code/polkadot-sdk/substrate/utils/frame/generate-bags"
+
+[patch.crates-io.pallet-alliance]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/alliance"
+
+[patch.crates-io.pallet-asset-conversion-ops]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/asset-conversion/ops"
+
+[patch.crates-io.pallet-asset-conversion-tx-payment]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/transaction-payment/asset-conversion-tx-payment"
+
+[patch.crates-io.pallet-asset-rewards]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/asset-rewards"
+
+[patch.crates-io.pallet-assets-freezer]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/assets-freezer"
+
+[patch.crates-io.pallet-assets-holder]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/assets-holder"
+
+[patch.crates-io.pallet-assets-precompiles]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/assets/precompiles"
+
+[patch.crates-io.pallet-atomic-swap]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/atomic-swap"
+
+[patch.crates-io.pallet-collective-content]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/pallets/collective-content"
+
+[patch.crates-io.pallet-contracts]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/contracts"
+
+[patch.crates-io.pallet-contracts-proc-macro]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/contracts/proc-macro"
+
+[patch.crates-io.pallet-contracts-uapi]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/contracts/uapi"
+
+[patch.crates-io.pallet-contracts-fixtures]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/contracts/fixtures"
+
+[patch.crates-io.pallet-insecure-randomness-collective-flip]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/insecure-randomness-collective-flip"
+
+[patch.crates-io.pallet-contracts-mock-network]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/contracts/mock-network"
+
+[patch.crates-io.pallet-core-fellowship]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/core-fellowship"
+
+[patch.crates-io.pallet-dap]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/dap"
+
+[patch.crates-io.pallet-derivatives]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/derivatives"
+
+[patch.crates-io.pallet-dev-mode]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/examples/dev-mode"
+
+[patch.crates-io.pallet-dummy-dim]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/dummy-dim"
+
+[patch.crates-io.pallet-people]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/people"
+
+[patch.crates-io.pallet-election-provider-multi-block]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/election-provider-multi-block"
+
+[patch.crates-io.pallet-lottery]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/lottery"
+
+[patch.crates-io.pallet-membership]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/membership"
+
+[patch.crates-io.pallet-mixnet]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/mixnet"
+
+[patch.crates-io.pallet-nft-fractionalization]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/nft-fractionalization"
+
+[patch.crates-io.pallet-nfts]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/nfts"
+
+[patch.crates-io.pallet-nfts-runtime-api]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/nfts/runtime-api"
+
+[patch.crates-io.pallet-node-authorization]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/node-authorization"
+
+[patch.crates-io.pallet-oracle]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/honzon/oracle"
+
+[patch.crates-io.pallet-oracle-runtime-api]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/honzon/oracle/runtime-api"
+
+[patch.crates-io.pallet-origin-restriction]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/origin-restriction"
+
+[patch.crates-io.pallet-paged-list]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/paged-list"
+
+[patch.crates-io.pallet-remark]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/remark"
+
+[patch.crates-io.pallet-safe-mode]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/safe-mode"
+
+[patch.crates-io.pallet-scored-pool]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/scored-pool"
+
+[patch.crates-io.pallet-skip-feeless-payment]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/transaction-payment/skip-feeless-payment"
+
+[patch.crates-io.pallet-staking-async]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/staking-async"
+
+[patch.crates-io.pallet-staking-async-reward-fn]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/staking-async/reward-fn"
+
+[patch.crates-io.pallet-staking-async-runtime-api]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/staking-async/runtime-api"
+
+[patch.crates-io.pallet-statement]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/statement"
+
+[patch.crates-io.pallet-transaction-storage]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/transaction-storage"
+
+[patch.crates-io.pallet-tx-pause]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/tx-pause"
+
+[patch.crates-io.pallet-uniques]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/uniques"
+
+[patch.crates-io.pallet-xcm-precompiles]
+path = "/Users/kata/code/polkadot-sdk/polkadot/xcm/pallet-xcm/precompiles"
+
+[patch.crates-io.polkadot-omni-node-lib]
+path = "/Users/kata/code/polkadot-sdk/cumulus/polkadot-omni-node/lib"
+
+[patch.crates-io.staging-chain-spec-builder]
+path = "/Users/kata/code/polkadot-sdk/substrate/bin/utils/chain-spec-builder"
+
+[patch.crates-io.sc-consensus-manual-seal]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/consensus/manual-seal"
+
+[patch.crates-io.sc-network-statement]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/network/statement"
+
+[patch.crates-io.sc-statement-store]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/statement-store"
+
+[patch.crates-io.sc-consensus-pow]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/consensus/pow"
+
+[patch.crates-io.sp-consensus-pow]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/consensus/pow"
+
+[patch.crates-io.sc-tracing-proc-macro]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/tracing/proc-macro"
+
+[patch.crates-io.sp-core-hashing]
+path = "/Users/kata/code/polkadot-sdk/substrate/deprecated/hashing"
+
+[patch.crates-io.sp-core-hashing-proc-macro]
+path = "/Users/kata/code/polkadot-sdk/substrate/deprecated/hashing/proc-macro"
+
+[patch.crates-io.sp-crypto-ec-utils]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/crypto/ec-utils"
+
+[patch.crates-io.staging-node-inspect]
+path = "/Users/kata/code/polkadot-sdk/substrate/bin/node/inspect"
+
+[patch.crates-io.subkey]
+path = "/Users/kata/code/polkadot-sdk/substrate/bin/utils/subkey"
+
+[patch.crates-io.substrate-frame-rpc-support]
+path = "/Users/kata/code/polkadot-sdk/substrate/utils/frame/rpc/support"
+
+[patch.crates-io.testnet-parachains-constants]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/runtimes/constants"
+
+[patch.crates-io.bp-bridge-hub-cumulus]
+path = "/Users/kata/code/polkadot-sdk/bridges/chains/chain-cumulus"
+
+[patch.crates-io.bp-polkadot-bulletin]
+path = "/Users/kata/code/polkadot-sdk/bridges/chains/chain-polkadot-bulletin"
+
+[patch.crates-io.pallet-bridge-beefy]
+path = "/Users/kata/code/polkadot-sdk/bridges/modules/beefy"
+
+[patch.crates-io.bp-beefy]
+path = "/Users/kata/code/polkadot-sdk/bridges/primitives/beefy"
+
+[patch.crates-io.relay-substrate-client]
+path = "/Users/kata/code/polkadot-sdk/bridges/relays/client-substrate"
+
+[patch.crates-io.finality-relay]
+path = "/Users/kata/code/polkadot-sdk/bridges/relays/finality"
+
+[patch.crates-io.relay-utils]
+path = "/Users/kata/code/polkadot-sdk/bridges/relays/utils"
+
+[patch.crates-io.equivocation-detector]
+path = "/Users/kata/code/polkadot-sdk/bridges/relays/equivocation"
+
+[patch.crates-io.substrate-relay-helper]
+path = "/Users/kata/code/polkadot-sdk/bridges/relays/lib-substrate-relay"
+
+[patch.crates-io.messages-relay]
+path = "/Users/kata/code/polkadot-sdk/bridges/relays/messages"
+
+[patch.crates-io.parachains-relay]
+path = "/Users/kata/code/polkadot-sdk/bridges/relays/parachains"
+
+[patch.crates-io.snowbridge-pallet-ethereum-client]
+path = "/Users/kata/code/polkadot-sdk/bridges/snowbridge/pallets/ethereum-client"
+
+[patch.crates-io.snowbridge-beacon-primitives]
+path = "/Users/kata/code/polkadot-sdk/bridges/snowbridge/primitives/beacon"
+
+[patch.crates-io.snowbridge-ethereum]
+path = "/Users/kata/code/polkadot-sdk/bridges/snowbridge/primitives/ethereum"
+
+[patch.crates-io.snowbridge-pallet-ethereum-client-fixtures]
+path = "/Users/kata/code/polkadot-sdk/bridges/snowbridge/pallets/ethereum-client/fixtures"
+
+[patch.crates-io.snowbridge-verification-primitives]
+path = "/Users/kata/code/polkadot-sdk/bridges/snowbridge/primitives/verification"
+
+[patch.crates-io.snowbridge-pallet-inbound-queue]
+path = "/Users/kata/code/polkadot-sdk/bridges/snowbridge/pallets/inbound-queue"
+
+[patch.crates-io.snowbridge-inbound-queue-primitives]
+path = "/Users/kata/code/polkadot-sdk/bridges/snowbridge/primitives/inbound-queue"
+
+[patch.crates-io.snowbridge-test-utils]
+path = "/Users/kata/code/polkadot-sdk/bridges/snowbridge/test-utils"
+
+[patch.crates-io.snowbridge-outbound-queue-primitives]
+path = "/Users/kata/code/polkadot-sdk/bridges/snowbridge/primitives/outbound-queue"
+
+[patch.crates-io.snowbridge-pallet-inbound-queue-fixtures]
+path = "/Users/kata/code/polkadot-sdk/bridges/snowbridge/pallets/inbound-queue/fixtures"
+
+[patch.crates-io.snowbridge-pallet-inbound-queue-v2]
+path = "/Users/kata/code/polkadot-sdk/bridges/snowbridge/pallets/inbound-queue-v2"
+
+[patch.crates-io.snowbridge-pallet-inbound-queue-v2-fixtures]
+path = "/Users/kata/code/polkadot-sdk/bridges/snowbridge/pallets/inbound-queue-v2/fixtures"
+
+[patch.crates-io.snowbridge-pallet-outbound-queue]
+path = "/Users/kata/code/polkadot-sdk/bridges/snowbridge/pallets/outbound-queue"
+
+[patch.crates-io.snowbridge-merkle-tree]
+path = "/Users/kata/code/polkadot-sdk/bridges/snowbridge/primitives/merkle-tree"
+
+[patch.crates-io.snowbridge-pallet-outbound-queue-v2]
+path = "/Users/kata/code/polkadot-sdk/bridges/snowbridge/pallets/outbound-queue-v2"
+
+[patch.crates-io.snowbridge-outbound-queue-v2-runtime-api]
+path = "/Users/kata/code/polkadot-sdk/bridges/snowbridge/pallets/outbound-queue-v2/runtime-api"
+
+[patch.crates-io.snowbridge-outbound-queue-runtime-api]
+path = "/Users/kata/code/polkadot-sdk/bridges/snowbridge/pallets/outbound-queue/runtime-api"
+
+[patch.crates-io.snowbridge-pallet-system]
+path = "/Users/kata/code/polkadot-sdk/bridges/snowbridge/pallets/system"
+
+[patch.crates-io.snowbridge-pallet-system-frontend]
+path = "/Users/kata/code/polkadot-sdk/bridges/snowbridge/pallets/system-frontend"
+
+[patch.crates-io.snowbridge-pallet-system-v2]
+path = "/Users/kata/code/polkadot-sdk/bridges/snowbridge/pallets/system-v2"
+
+[patch.crates-io.snowbridge-system-v2-runtime-api]
+path = "/Users/kata/code/polkadot-sdk/bridges/snowbridge/pallets/system-v2/runtime-api"
+
+[patch.crates-io.snowbridge-system-runtime-api]
+path = "/Users/kata/code/polkadot-sdk/bridges/snowbridge/pallets/system/runtime-api"
+
+[patch.crates-io.snowbridge-runtime-common]
+path = "/Users/kata/code/polkadot-sdk/bridges/snowbridge/runtime/runtime-common"
+
+[patch.crates-io.snowbridge-runtime-test-common]
+path = "/Users/kata/code/polkadot-sdk/bridges/snowbridge/runtime/test-common"
+
+[patch.crates-io.cumulus-pov-validator]
+path = "/Users/kata/code/polkadot-sdk/cumulus/bin/pov-validator"
+
+[patch.crates-io.pallet-ah-ops]
+path = "/Users/kata/code/polkadot-sdk/cumulus/pallets/ah-ops"
+
+[patch.crates-io.asset-hub-rococo-emulated-chain]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/integration-tests/emulated/chains/parachains/assets/asset-hub-rococo"
+
+[patch.crates-io.asset-hub-rococo-runtime]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/runtimes/assets/asset-hub-rococo"
+
+[patch.crates-io.bp-asset-hub-rococo]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/runtimes/assets/asset-hub-rococo/bridge-primitives"
+
+[patch.crates-io.bp-asset-hub-westend]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/runtimes/assets/asset-hub-westend/bridge-primitives"
+
+[patch.crates-io.bp-bridge-hub-rococo]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/runtimes/bridge-hubs/bridge-hub-rococo/bridge-primitives"
+
+[patch.crates-io.bp-bridge-hub-westend]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/runtimes/bridge-hubs/bridge-hub-westend/bridge-primitives"
+
+[patch.crates-io.rococo-emulated-chain]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/integration-tests/emulated/chains/relays/rococo"
+
+[patch.crates-io.asset-hub-westend-emulated-chain]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/integration-tests/emulated/chains/parachains/assets/asset-hub-westend"
+
+[patch.crates-io.asset-hub-westend-runtime]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/runtimes/assets/asset-hub-westend"
+
+[patch.crates-io.westend-emulated-chain]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/integration-tests/emulated/chains/relays/westend"
+
+[patch.crates-io.bridge-hub-rococo-emulated-chain]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/integration-tests/emulated/chains/parachains/bridges/bridge-hub-rococo"
+
+[patch.crates-io.bridge-hub-rococo-runtime]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/runtimes/bridge-hubs/bridge-hub-rococo"
+
+[patch.crates-io.bp-westend]
+path = "/Users/kata/code/polkadot-sdk/polkadot/runtime/westend/bridge-primitives"
+
+[patch.crates-io.bridge-hub-westend-emulated-chain]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/integration-tests/emulated/chains/parachains/bridges/bridge-hub-westend"
+
+[patch.crates-io.bridge-hub-westend-runtime]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/runtimes/bridge-hubs/bridge-hub-westend"
+
+[patch.crates-io.bp-rococo]
+path = "/Users/kata/code/polkadot-sdk/polkadot/runtime/rococo/bridge-primitives"
+
+[patch.crates-io.collectives-westend-emulated-chain]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/integration-tests/emulated/chains/parachains/collectives/collectives-westend"
+
+[patch.crates-io.collectives-westend-runtime]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/runtimes/collectives/collectives-westend"
+
+[patch.crates-io.coretime-rococo-emulated-chain]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/integration-tests/emulated/chains/parachains/coretime/coretime-rococo"
+
+[patch.crates-io.coretime-rococo-runtime]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/runtimes/coretime/coretime-rococo"
+
+[patch.crates-io.coretime-westend-emulated-chain]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/integration-tests/emulated/chains/parachains/coretime/coretime-westend"
+
+[patch.crates-io.coretime-westend-runtime]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/runtimes/coretime/coretime-westend"
+
+[patch.crates-io.people-rococo-emulated-chain]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/integration-tests/emulated/chains/parachains/people/people-rococo"
+
+[patch.crates-io.people-rococo-runtime]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/runtimes/people/people-rococo"
+
+[patch.crates-io.people-westend-emulated-chain]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/integration-tests/emulated/chains/parachains/people/people-westend"
+
+[patch.crates-io.people-westend-runtime]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/runtimes/people/people-westend"
+
+[patch.crates-io.penpal-emulated-chain]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/integration-tests/emulated/chains/parachains/testing/penpal"
+
+[patch.crates-io.penpal-runtime]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/runtimes/testing/penpal"
+
+[patch.crates-io.rococo-system-emulated-network]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/integration-tests/emulated/networks/rococo-system"
+
+[patch.crates-io.rococo-westend-system-emulated-network]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/integration-tests/emulated/networks/rococo-westend-system"
+
+[patch.crates-io.westend-system-emulated-network]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/integration-tests/emulated/networks/westend-system"
+
+[patch.crates-io.asset-hub-rococo-integration-tests]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/integration-tests/emulated/tests/assets/asset-hub-rococo"
+
+[patch.crates-io.asset-hub-westend-integration-tests]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/integration-tests/emulated/tests/assets/asset-hub-westend"
+
+[patch.crates-io.bridge-hub-rococo-integration-tests]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/integration-tests/emulated/tests/bridges/bridge-hub-rococo"
+
+[patch.crates-io.bridge-hub-westend-integration-tests]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/integration-tests/emulated/tests/bridges/bridge-hub-westend"
+
+[patch.crates-io.collectives-westend-integration-tests]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/integration-tests/emulated/tests/collectives/collectives-westend"
+
+[patch.crates-io.coretime-rococo-integration-tests]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/integration-tests/emulated/tests/coretime/coretime-rococo"
+
+[patch.crates-io.coretime-westend-integration-tests]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/integration-tests/emulated/tests/coretime/coretime-westend"
+
+[patch.crates-io.governance-westend-integration-tests]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/integration-tests/emulated/tests/governance/westend"
+
+[patch.crates-io.people-rococo-integration-tests]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/integration-tests/emulated/tests/people/people-rococo"
+
+[patch.crates-io.people-westend-integration-tests]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/integration-tests/emulated/tests/people/people-westend"
+
+[patch.crates-io.glutton-westend-runtime]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/runtimes/glutton/glutton-westend"
+
+[patch.crates-io.rococo-parachain-runtime]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/runtimes/testing/rococo-parachain"
+
+[patch.crates-io.yet-another-parachain-runtime]
+path = "/Users/kata/code/polkadot-sdk/cumulus/parachains/runtimes/testing/yet-another-parachain"
+
+[patch.crates-io.polkadot-omni-node]
+path = "/Users/kata/code/polkadot-sdk/cumulus/polkadot-omni-node"
+
+[patch.crates-io.polkadot-jemalloc-shim]
+path = "/Users/kata/code/polkadot-sdk/polkadot/jemalloc-shim"
+
+[patch.crates-io.polkadot-parachain-bin]
+path = "/Users/kata/code/polkadot-sdk/cumulus/polkadot-parachain"
+
+[patch.crates-io.cumulus-zombienet-sdk-tests]
+path = "/Users/kata/code/polkadot-sdk/cumulus/zombienet/zombienet-sdk"
+
+[patch.crates-io.polkadot-sdk-docs]
+path = "/Users/kata/code/polkadot-sdk/docs/sdk"
+
+[patch.crates-io.chain-spec-guide-runtime]
+path = "/Users/kata/code/polkadot-sdk/docs/sdk/src/reference_docs/chain_spec_runtime"
+
+[patch.crates-io.polkadot-sdk-docs-first-runtime]
+path = "/Users/kata/code/polkadot-sdk/docs/sdk/packages/guides/first-runtime"
+
+[patch.crates-io.polkadot-sdk-docs-first-pallet]
+path = "/Users/kata/code/polkadot-sdk/docs/sdk/packages/guides/first-pallet"
+
+[patch.crates-io.minimal-template-runtime]
+path = "/Users/kata/code/polkadot-sdk/templates/minimal/runtime"
+
+[patch.crates-io.pallet-minimal-template]
+path = "/Users/kata/code/polkadot-sdk/templates/minimal/pallets/template"
+
+[patch.crates-io.staging-node-cli]
+path = "/Users/kata/code/polkadot-sdk/substrate/bin/node/cli"
+
+[patch.crates-io.node-rpc]
+path = "/Users/kata/code/polkadot-sdk/substrate/bin/node/rpc"
+
+[patch.crates-io.node-testing]
+path = "/Users/kata/code/polkadot-sdk/substrate/bin/node/testing"
+
+[patch.crates-io.sc-service-test]
+path = "/Users/kata/code/polkadot-sdk/substrate/client/service/test"
+
+[patch.crates-io.substrate-cli-test-utils]
+path = "/Users/kata/code/polkadot-sdk/substrate/test-utils/cli"
+
+[patch.crates-io.pallet-default-config-example]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/examples/default-config"
+
+[patch.crates-io.pallet-example-authorization-tx-extension]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/examples/authorization-tx-extension"
+
+[patch.crates-io.pallet-example-offchain-worker]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/examples/offchain-worker"
+
+[patch.crates-io.pallet-example-single-block-migrations]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/examples/single-block-migrations"
+
+[patch.crates-io.pallet-examples]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/examples"
+
+[patch.crates-io.pallet-example-frame-crate]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/examples/frame-crate"
+
+[patch.crates-io.pallet-example-kitchensink]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/examples/kitchensink"
+
+[patch.crates-io.pallet-example-split]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/examples/split"
+
+[patch.crates-io.pallet-example-view-functions]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/examples/view-functions"
+
+[patch.crates-io.solochain-template-runtime]
+path = "/Users/kata/code/polkadot-sdk/templates/solochain/runtime"
+
+[patch.crates-io.pallet-template]
+path = "/Users/kata/code/polkadot-sdk/templates/solochain/pallets/template"
+
+[patch.crates-io.xcm-docs]
+path = "/Users/kata/code/polkadot-sdk/polkadot/xcm/docs"
+
+[patch.crates-io.polkadot]
+path = "/Users/kata/code/polkadot-sdk/polkadot"
+
+[patch.crates-io.erasure_coding_fuzzer]
+path = "/Users/kata/code/polkadot-sdk/polkadot/erasure-coding/fuzzer"
+
+[patch.crates-io.polkadot-test-malus]
+path = "/Users/kata/code/polkadot-sdk/polkadot/node/malus"
+
+[patch.crates-io.zombienet-backchannel]
+path = "/Users/kata/code/polkadot-sdk/polkadot/node/zombienet-backchannel"
+
+[patch.crates-io.test-parachain-adder-collator]
+path = "/Users/kata/code/polkadot-sdk/polkadot/parachain/test-parachains/adder/collator"
+
+[patch.crates-io.test-parachain-undying]
+path = "/Users/kata/code/polkadot-sdk/polkadot/parachain/test-parachains/undying"
+
+[patch.crates-io.test-parachain-undying-collator]
+path = "/Users/kata/code/polkadot-sdk/polkadot/parachain/test-parachains/undying/collator"
+
+[patch.crates-io.polkadot-voter-bags]
+path = "/Users/kata/code/polkadot-sdk/polkadot/utils/generate-bags"
+
+[patch.crates-io.remote-ext-tests-bags-list]
+path = "/Users/kata/code/polkadot-sdk/polkadot/utils/remote-ext-tests/bags-list"
+
+[patch.crates-io.pallet-bags-list-remote-tests]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/bags-list/remote-tests"
+
+[patch.crates-io.xcm-executor-integration-tests]
+path = "/Users/kata/code/polkadot-sdk/polkadot/xcm/xcm-executor/integration-tests"
+
+[patch.crates-io.xcm-simulator-example]
+path = "/Users/kata/code/polkadot-sdk/polkadot/xcm/xcm-simulator/example"
+
+[patch.crates-io.xcm-simulator-fuzzer]
+path = "/Users/kata/code/polkadot-sdk/polkadot/xcm/xcm-simulator/fuzzer"
+
+[patch.crates-io.polkadot-zombienet-sdk-tests]
+path = "/Users/kata/code/polkadot-sdk/polkadot/zombienet-sdk-tests"
+
+[patch.crates-io.node-bench]
+path = "/Users/kata/code/polkadot-sdk/substrate/bin/node/bench"
+
+[patch.crates-io.pallet-bags-list-fuzzer]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/bags-list/fuzzer"
+
+[patch.crates-io.pallet-election-provider-e2e-test]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/election-provider-multi-phase/test-staking-e2e"
+
+[patch.crates-io.frame-election-solution-type-fuzzer]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/election-provider-support/solution-type/fuzzer"
+
+[patch.crates-io.pallet-nomination-pools-fuzzer]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/nomination-pools/fuzzer"
+
+[patch.crates-io.pallet-nomination-pools-test-delegate-stake]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/nomination-pools/test-delegate-stake"
+
+[patch.crates-io.pallet-paged-list-fuzzer]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/paged-list/fuzzer"
+
+[patch.crates-io.revive-dev-node]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/revive/dev-node/node"
+
+[patch.crates-io.revive-dev-runtime]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/revive/dev-node/runtime"
+
+[patch.crates-io.pallet-revive-eth-rpc]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/revive/rpc"
+
+[patch.crates-io.pallet-sassafras]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/sassafras"
+
+[patch.crates-io.sp-consensus-sassafras]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/consensus/sassafras"
+
+[patch.crates-io.pallet-ahm-test]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/staking-async/ahm-test"
+
+[patch.crates-io.pallet-staking-async-parachain-runtime]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/staking-async/runtimes/parachain"
+
+[patch.crates-io.pallet-staking-async-preset-store]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/staking-async/runtimes/preset-store"
+
+[patch.crates-io.pallet-staking-async-rc-runtime]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/staking-async/runtimes/rc"
+
+[patch.crates-io.pallet-staking-async-rc-runtime-constants]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/staking-async/runtimes/rc/constants"
+
+[patch.crates-io.frame-support-test-compile-pass]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/support/test/compile_pass"
+
+[patch.crates-io.frame-support-test-stg-frame-crate]
+path = "/Users/kata/code/polkadot-sdk/substrate/frame/support/test/stg_frame_crate"
+
+[patch.crates-io.sp-api-test]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/api/test"
+
+[patch.crates-io.sp-application-crypto-test]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/application-crypto/test"
+
+[patch.crates-io.sp-arithmetic-fuzzer]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/arithmetic/fuzzer"
+
+[patch.crates-io.sp-core-fuzz]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/core/fuzz"
+
+[patch.crates-io.sp-npos-elections-fuzzer]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/npos-elections/fuzzer"
+
+[patch.crates-io.sp-runtime-interface-test]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/runtime-interface/test"
+
+[patch.crates-io.sp-runtime-interface-test-wasm-deprecated]
+path = "/Users/kata/code/polkadot-sdk/substrate/primitives/runtime-interface/test-wasm-deprecated"
+
+[patch.crates-io.node-template-release]
+path = "/Users/kata/code/polkadot-sdk/substrate/scripts/ci/node-template-release"
+
+[patch.crates-io.node-runtime-generate-bags]
+path = "/Users/kata/code/polkadot-sdk/substrate/utils/frame/generate-bags/node-runtime"
+
+[patch.crates-io.frame-omni-bencher]
+path = "/Users/kata/code/polkadot-sdk/substrate/utils/frame/omni-bencher"
+
+[patch.crates-io.minimal-template-node]
+path = "/Users/kata/code/polkadot-sdk/templates/minimal/node"
+
+[patch.crates-io.parachain-template]
+path = "/Users/kata/code/polkadot-sdk/templates/parachain"
+
+[patch.crates-io.parachain-template-node]
+path = "/Users/kata/code/polkadot-sdk/templates/parachain/node"
+
+[patch.crates-io.parachain-template-runtime]
+path = "/Users/kata/code/polkadot-sdk/templates/parachain/runtime"
+
+[patch.crates-io.pallet-parachain-template]
+path = "/Users/kata/code/polkadot-sdk/templates/parachain/pallets/template"
+
+[patch.crates-io.solochain-template-node]
+path = "/Users/kata/code/polkadot-sdk/templates/solochain/node"
+
+[patch.crates-io.template-zombienet-tests]
+path = "/Users/kata/code/polkadot-sdk/templates/zombienet"
